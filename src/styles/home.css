@@ -1,0 +1,28 @@
+@import "style.css";
+@import "content.css";
+
+
+.home main {
+    text-align: center;
+}
+
+.home body {
+    width: 100%;
+}
+
+.home button {
+    color: orange;
+    border-radius: 7px;
+    border: whitesmoke solid 1px;
+}
+.home button:hover {
+    color: whitesmoke;
+}
+
+.home input {
+    border-radius: 7px;
+    border: solid;
+    color: whitesmoke;
+
+    font-size: 18px;
+}

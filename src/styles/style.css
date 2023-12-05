@@ -1,0 +1,105 @@
+* {
+    color: whitesmoke;
+}
+nav {
+    background: black;
+    overflow: hidden;
+    border-bottom: orange 1px solid;
+}
+nav a {
+    color: orange;
+    float: left;
+    text-align: center;
+    padding: 15px 15px;
+    font-size: 1.5em;
+}
+nav a:hover {
+    color: whitesmoke;
+}
+
+body {
+    font-size: 16px;
+}
+main {
+    padding: 0 10%;
+    background-image: none;
+}
+
+@media (max-width: 500px) {
+    main {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+p {
+    text-indent: 5vw;
+}
+span {
+    color: orange;
+}
+strong {
+    color: orange;
+}
+h1 {
+    margin: 0;
+    padding: 15px;
+    color: orange;
+    font-size: 2em;
+    text-align: center;
+}
+h2 {
+    font-size: 1.5em;
+    color: orange;
+    text-indent: 15vw;
+}
+h3 {
+    text-indent: 7vw;
+    font-size: 1em;
+    color: chocolate;
+}
+h4 {
+    text-align: center;
+
+    margin-top: 20px;
+    font-size: 1em;
+    margin-bottom: 0;
+}
+li {
+    counter-increment: li
+}
+ul {
+     list-style: none
+ }
+ul li::before {
+    content: "•";
+    color: orange;
+    margin-left: -1em;
+    display: inline-block;
+    width: 1em;
+}
+ol {
+    list-style: none;
+    counter-reset: li;
+}
+ol li::before {
+    content: counter(li);
+    color: orange;
+    margin-left: -1em;
+    display: inline-block;
+    width: 1em;
+}
+
+table {
+    margin: 8px;
+    border: chocolate solid 2px;
+    text-align: center;
+    border-collapse: collapse;
+}
+td {
+    border: chocolate dotted 1px;
+}
+
+input, button, body{
+    background: black;
+}
