@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import "../../styles/home.css"
+import "../../public/styles/home.css"
 import Navigation from "../Navigation";
 import {NavigateFunction, useNavigate} from 'react-router-dom';
 
@@ -56,6 +56,7 @@ function Home() {
 
 function createRoom() {
     navigate('/game');
+    return
 
     console.log("connection")
     fetch("/create_room", {

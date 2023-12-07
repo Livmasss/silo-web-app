@@ -1,4 +1,4 @@
-import '../../styles/rules.css'
+import '../../public/styles/rules.css'
 import Navigation from "../Navigation";
 
 function Rules() {
