@@ -10,7 +10,7 @@ function Room() {
                     Игрок2
                 </div>
             </section>
-            <form method="post" action="/game">
+            <form method="post" action="/pages/Game">
                 <input type="submit" value="Start game"/>
             </form>
         </div>

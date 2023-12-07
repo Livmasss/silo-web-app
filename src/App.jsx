@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './public/styles/App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./components/pages/Home";
@@ -12,7 +12,7 @@ function App() {
         <Routes>
             <Route path="" element={<Home />}></Route>
             <Route path="/rules" element={<Rules />}></Route>
-            <Route path="/game" element={<Game/>}></Route>
+            <Route path="/game" element={<Game />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

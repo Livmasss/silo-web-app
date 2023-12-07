@@ -2,10 +2,10 @@ import "../public/styles/game.css"
 
 import ic_gender from '../public/imgs/ic_gender.svg'
 import ic_health from '../public/imgs/ic_health.svg'
-import ic_person from '../public/imgs/ic_person.svg'
+import ic_personality from '../public/imgs/ic_personality.svg'
 import ic_profession from '../public/imgs/ic_profession.svg'
 import ic_hobby from '../public/imgs/ic_hobby.svg'
-import ic_pfobia from '../public/imgs/ic_pfobia.svg'
+import ic_phobia from '../public/imgs/ic_phobia.svg'
 import ic_inventory from '../public/imgs/ic_inventory.svg'
 import ic_information from '../public/imgs/ic_information.svg'
 import ic_action from '../public/imgs/ic_action.svg'
@@ -50,7 +50,7 @@ function GameSession() {
                 <div className="card">
                     Черта характера
                     <div className="card_icon">
-                        <img src={ic_person} alt="person"/>
+                        <img src={ic_personality} alt="personality"/>
                     </div>
                     Описание
                 </div>
@@ -71,7 +71,7 @@ function GameSession() {
                 <div className="card">
                     Фобия
                     <div className="card_icon">
-                        <img src={ic_pfobia} alt="ic_pfobia"/>
+                        <img src={ic_phobia} alt="pfobia"/>
                     </div>
                     Описание
                 </div>
