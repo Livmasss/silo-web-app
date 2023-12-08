@@ -11,19 +11,34 @@ import ic_information from '../public/imgs/ic_information.svg'
 import ic_action from '../public/imgs/ic_action.svg'
 
 import PlayerPropertyCard from "./PlayerPropertyCard";
-import {Component} from "react";
+import {useEffect, useState} from "react";
 
+function GameSession() {
+    const [state, setState] = useState(null);
 
+    const callBackendAPI = async () => {
+        const response = await fetch('/player_data');
+        const body = await response.json();
 
-function GameSession(props) {
+        if (response.status !== 200) {
+            throw Error(body.message)
+        }
+        return body;
+    };
 
-
+    useEffect(() => {
+        callBackendAPI()
+            .then(res => {
+                setState(res)
+            })
+            .catch(err => console.log(err));
+    }, [])
 
     const getPlayerProp = (key) => {
-        if (props.state === null) {
+        if (state === null) {
             return null
         }
-        return props.state[key]
+        return state[key]
     }
 
     return (

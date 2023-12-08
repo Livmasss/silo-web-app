@@ -4,32 +4,12 @@ import GameSession from "../GameSession";
 import {useEffect, useState} from "react";
 
 function Game() {
-    const [state, setState] = useState(null);
-
-    const callBackendAPI = async () => {
-        const response = await fetch('/player_data');
-        const body = await response.json();
-
-        if (response.status !== 200) {
-            throw Error(body.message)
-        }
-        return body;
-    };
-
-    useEffect(() => {
-        callBackendAPI()
-            .then(res => {
-                setState(res)
-            })
-            .catch(err => console.log(err));
-    }, [])
-
     return (
         <div>
             <Navigation/>
 
             <Room/>
-            <GameSession state ={state}/>
+            <GameSession/>
         </div>
     )
 }
