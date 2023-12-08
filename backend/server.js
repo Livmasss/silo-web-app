@@ -28,45 +28,39 @@ app.get('/api/players_open_data', (req, res) => {
             "persons": [
                 {
                     "name": "Зубослеп",
-                    "player_data": {
-                        "gender": "Мужчина",
-                        "health": "",
-                        "personality": "",
-                        "profession": "Стоматолог",
-                        "hobby": "",
-                        "phobia": "",
-                        "inventory": "",
-                        "information": "",
-                        "action": ""
-                    }
+                    "gender": "Мужчина",
+                    "health": "",
+                    "personality": "",
+                    "profession": "Стоматолог",
+                    "hobby": "",
+                    "phobia": "",
+                    "inventory": "",
+                    "information": "",
+                    "action": ""
                 },
                 {
                     "name": "Октябрина",
-                    "player_data": {
-                        "gender": "Мужчина",
-                        "health": "",
-                        "personality": "",
-                        "profession": "Гид по туалетам",
-                        "hobby": "",
-                        "phobia": "",
-                        "inventory": "",
-                        "information": "",
-                        "action": ""
-                    }
+                    "gender": "Мужчина",
+                    "health": "",
+                    "personality": "",
+                    "profession": "Гид по туалетам",
+                    "hobby": "",
+                    "phobia": "",
+                    "inventory": "",
+                    "information": "",
+                    "action": ""
                 },
                 {
                     "name": "Кринжеслав",
-                    "player_data": {
-                        "gender": "Мужчина",
-                        "health": "",
-                        "personality": "",
-                        "profession": "Банкир",
-                        "hobby": "",
-                        "phobia": "",
-                        "inventory": "",
-                        "information": "",
-                        "action": ""
-                    }
+                    "gender": "Мужчина",
+                    "health": "",
+                    "personality": "",
+                    "profession": "Банкир",
+                    "hobby": "",
+                    "phobia": "",
+                    "inventory": "",
+                    "information": "",
+                    "action": ""
                 }]
         })
     )

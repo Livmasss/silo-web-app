@@ -14,9 +14,10 @@ import PlayerPropertyCard from "./PlayerPropertyCard";
 import {useEffect, useState} from "react";
 
 function GameSession() {
-    const [state, setState] = useState(null);
+    const [playerState, setPlayerState] = useState(null);
+    const [openDataState, setOpenDataState] = useState(null);
 
-    const callBackendAPI = async () => {
+    const getPlayerData = async () => {
         const response = await fetch('/api/player_data');
         const body = await response.json();
 
@@ -26,19 +27,42 @@ function GameSession() {
         return body;
     };
 
+    const getOpenPlayersData = async () => {
+        const response = await fetch('/api/players_open_data')
+        const body = response.json()
+
+        if (response.status !== 200)
+            throw Error(body.message)
+        return body
+    }
+
     useEffect(() => {
-        callBackendAPI()
+        getPlayerData()
             .then(res => {
-                setState(res)
+                setPlayerState(res)
             })
             .catch(err => console.log(err));
     }, [])
 
+    useEffect(() => {
+        getOpenPlayersData()
+            .then(res => {
+                setOpenDataState(res)
+            })
+            .catch(err => console.log(err))
+    }, [openDataState])
+
     const getPlayerProp = (key) => {
-        if (state === null) {
+        if (playerState === null) {
             return null
         }
-        return state[key]
+        return playerState[key]
+    }
+
+    const getOpenData = () => {
+        if (openDataState === null)
+            return []
+        return openDataState['persons']
     }
 
     return (
@@ -47,7 +71,7 @@ function GameSession() {
                 <h1>Бункер</h1>
                 <div className="table">
                     <table id="overview_table">
-                        <tbody>
+                        <thead>
                         <tr>
                             <td>Игрок</td>
                             <td>Пол</td>
@@ -59,6 +83,25 @@ function GameSession() {
                             <td>Инвентарь</td>
                             <td>Доп. сведения</td>
                         </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            getOpenData().map((value, index) =>
+                                (
+                                    <tr key={index}>
+                                        <td>{value.name}</td>
+                                        <td>{value.gender}</td>
+                                        <td>{value.health}</td>
+                                        <td>{value.personality}</td>
+                                        <td>{value.profession}</td>
+                                        <td>{value.hobby}</td>
+                                        <td>{value.phobia}</td>
+                                        <td>{value.inventory}</td>
+                                        <td>{value.information}</td>
+                                    </tr>
+                                )
+                            )
+                        }
                         </tbody>
                     </table>
                 </div>
@@ -85,14 +128,14 @@ function GameSession() {
 
                 <div className="table">
                     <table id="auxiliary_table">
-                        <tbody>
+                        <thead>
                         <tr>
                             <td>Выбор</td>
                             <td>Игрок</td>
                             <td>Голоса</td>
                             <td>Спец. возможность</td>
                         </tr>
-                        </tbody>
+                        </thead>
                     </table>
                 </div>
             </div>
