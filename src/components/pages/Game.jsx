@@ -19,19 +19,17 @@ function Game() {
     useEffect(() => {
         callBackendAPI()
             .then(res => {
-                setState(res["player_data"])
+                setState(res)
             })
             .catch(err => console.log(err));
     }, [])
 
     return (
         <div>
-            <p>{JSON.stringify(state)}</p>
-
             <Navigation/>
 
             <Room/>
-            <GameSession/>
+            <GameSession state ={state}/>
         </div>
     )
 }
