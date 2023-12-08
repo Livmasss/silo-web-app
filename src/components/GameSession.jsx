@@ -17,7 +17,7 @@ function GameSession() {
     const [state, setState] = useState(null);
 
     const callBackendAPI = async () => {
-        const response = await fetch('/player_data');
+        const response = await fetch('/api/player_data');
         const body = await response.json();
 
         if (response.status !== 200) {
