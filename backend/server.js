@@ -22,10 +22,37 @@ app.get('/api/player_data', (req, res) => {
     )
 })
 
+app.get('/api/actions_data', (req, res) => {
+    res.send(
+        JSON.stringify( [
+            {
+                "player": "Зубослеп",
+                "votes": [
+                    "Октябрина",
+                    "Кринжеслав"
+                ],
+                "action": ""
+            },
+            {
+                "player": "Октябрина",
+                "votes": [],
+                "action": "Уменьшает запасы еды в бункере на 300"
+            },
+            {
+                "player": "Кринжеслав",
+                "votes": [
+                    "Зубослеп"
+                ],
+                "action": ""
+            }]
+        )
+    )
+})
+
 app.get('/api/players_open_data', (req, res) => {
     res.send(
-        JSON.stringify( {
-            "persons": [
+        JSON.stringify(
+            [
                 {
                     "name": "Зубослеп",
                     "gender": "Мужчина",
@@ -62,6 +89,6 @@ app.get('/api/players_open_data', (req, res) => {
                     "information": "",
                     "action": ""
                 }]
-        })
+        )
     )
 })

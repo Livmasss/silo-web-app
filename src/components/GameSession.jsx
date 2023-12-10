@@ -16,19 +16,28 @@ import {useEffect, useState} from "react";
 function GameSession() {
     const [playerState, setPlayerState] = useState(null);
     const [openDataState, setOpenDataState] = useState(null);
+    const [actionsState, setActionsState] = useState(null);
 
     const getPlayerData = async () => {
         const response = await fetch('/api/player_data');
         const body = await response.json();
 
-        if (response.status !== 200) {
+        if (response.status !== 200)
             throw Error(body.message)
-        }
         return body;
     };
 
-    const getOpenPlayersData = async () => {
+    const getOpenData = async () => {
         const response = await fetch('/api/players_open_data')
+        const body = response.json()
+
+        if (response.status !== 200)
+            throw Error(body.message)
+        return body
+    }
+
+    const getActionsData = async () => {
+        const response = await fetch('/api/actions_data')
         const body = response.json()
 
         if (response.status !== 200)
@@ -45,24 +54,27 @@ function GameSession() {
     }, [])
 
     useEffect(() => {
-        getOpenPlayersData()
+        getOpenData()
             .then(res => {
                 setOpenDataState(res)
             })
             .catch(err => console.log(err))
-    }, [openDataState])
+    }, [])
+
+
+    useEffect(() => {
+        getActionsData()
+            .then(res => {
+                setActionsState(res)
+            })
+            .catch(err => console.log(err))
+    }, [])
 
     const getPlayerProp = (key) => {
         if (playerState === null) {
             return null
         }
         return playerState[key]
-    }
-
-    const getOpenData = () => {
-        if (openDataState === null)
-            return []
-        return openDataState['persons']
     }
 
     return (
@@ -86,8 +98,8 @@ function GameSession() {
                         </thead>
                         <tbody>
                         {
-                            getOpenData().map((value, index) =>
-                                (
+                            openDataState !== null && openDataState
+                                .map((value, index) => (
                                     <tr key={index}>
                                         <td>{value.name}</td>
                                         <td>{value.gender}</td>
@@ -136,6 +148,23 @@ function GameSession() {
                             <td>Спец. возможность</td>
                         </tr>
                         </thead>
+                        <tbody>
+                        {
+                            actionsState !== null && actionsState
+                                .map((value, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>
+                                                <input type="radio" id={value.player} name="vote" checked/>
+                                            </td>
+                                            <td>{value.player}</td>
+                                            <td>{value.votes}</td>
+                                            <td>{value.action}</td>
+                                        </tr>
+                                    )
+                                })
+                        }
+                        </tbody>
                     </table>
                 </div>
             </div>
