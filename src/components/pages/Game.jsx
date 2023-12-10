@@ -1,14 +1,19 @@
 import Navigation from "../Navigation";
 import Room from "../Room";
 import GameSession from "../GameSession";
+import React from "react";
 
 function Game() {
+    const [gameStarted, setGameStarted] = React.useState(false)
+    const onClickVisibility = () =>
+        setGameStarted(true)
+
     return (
         <div>
             <Navigation/>
 
-            <Room/>
-            <GameSession/>
+            {!gameStarted ? <Room callback={onClickVisibility}/>: null}
+            {gameStarted ? <GameSession/>: null}
         </div>
     )
 }

@@ -1,11 +1,11 @@
 import React, {useRef} from 'react';
 import "../../public/styles/home.css"
 import Navigation from "../Navigation";
-import {NavigateFunction, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
-let roomRef: React.MutableRefObject<null>
-let usernameRef: React.MutableRefObject<null>
-let navigate: NavigateFunction
+let roomRef
+let usernameRef
+let navigate
 
 function Home() {
     usernameRef = useRef(null);
@@ -57,21 +57,21 @@ function Home() {
 function createRoom() {
     navigate('/game');
     return
-
-    console.log("connection")
-    fetch("/create_room", {
-        method: "POST",
-        body: JSON.stringify({
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        }
-    })
-        .then(r => {
-            alert("Post sent")
-            navigate('/game');
-        })
-        .finally(() => alert("Post failed"))
+//
+//     console.log("connection")
+//     fetch("/create_room", {
+//         method: "POST",
+//         body: JSON.stringify({
+//         }),
+//         headers: {
+//             'Content-type': 'application/json; charset=UTF-8',
+//         }
+//     })
+//         .then(r => {
+//             alert("Post sent")
+//             navigate('/game');
+//         })
+//         .finally(() => alert("Post failed"))
 }
 
 export default Home

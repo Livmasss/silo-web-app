@@ -1,5 +1,5 @@
 
-function Room() {
+function Room(props) {
     return (
         <div>
             <section>
@@ -10,9 +10,8 @@ function Room() {
                     Игрок2
                 </div>
             </section>
-            <form method="post" action="/pages/Game">
-                <input type="submit" value="Start game"/>
-            </form>
+
+            <button type="submit" value="Start game" onClick={props.callback}/>
         </div>
     )
 }
