@@ -12,7 +12,7 @@ function Game() {
         <div>
             <Navigation/>
 
-            {!gameStarted ? <Room callback={onClickVisibility}/>: null}
+            {!gameStarted ? <Room callback={onClickVisibility} players={["100000000000000000", "200000000000000000", "300000000000000000"]}/>: null}
             {gameStarted ? <GameSession/>: null}
         </div>
     )

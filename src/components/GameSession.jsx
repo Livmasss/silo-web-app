@@ -155,7 +155,7 @@ function GameSession() {
                                     return (
                                         <tr key={index}>
                                             <td>
-                                                <input type="radio" id={value.player} name="vote"/>
+                                                <input className="radio_vote" type="radio" id={value.player} name="vote"/>
                                             </td>
                                             <td>{value.player}</td>
                                             <td>{value.votes.join(", ")}</td>

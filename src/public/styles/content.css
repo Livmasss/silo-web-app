@@ -18,11 +18,6 @@
 .connection p {
     margin: 0;
 }
-.connection button {
-    margin: 6px;
-    height: 32px;
-    width: 128px;
-}
 .connection label {
     font-size: 14px;
 }

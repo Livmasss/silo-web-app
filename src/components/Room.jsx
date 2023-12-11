@@ -1,17 +1,23 @@
+import "../public/styles/room.css"
 
 function Room(props) {
     return (
-        <div>
+        <div className="room">
             <section>
                 <p>Игроки:</p>
-                <p>2/10</p>
-                <div className="player_list">
-                    Игрок1
-                    Игрок2
+                <p>{props.players.length}/10</p>
+                <div>
+                    {
+                        props.players.map((value, index) => {
+                            return <div className="player_elem">
+                                {index !== 0 ? ', '+value : value}
+                            </div>
+                        })
+                    }
                 </div>
             </section>
 
-            <button type="submit" value="Start game" onClick={props.callback}/>
+            <button onClick={props.callback}>Start game</button>
         </div>
     )
 }

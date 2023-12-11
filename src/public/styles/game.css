@@ -51,3 +51,30 @@
     width: inherit;
     margin: auto;
 }
+
+.radio_vote {
+    appearance: none;
+
+    border-radius: 25%;
+    border: 0.15em solid whitesmoke;
+
+    margin: 0;
+    width: 1.55em;
+    height: 1.55em;
+
+    display: inline-grid;
+    place-content: center;
+}
+.radio_vote::before {
+    content: "";
+    width: 0.85em;
+    height: 0.85em;
+    border-radius: 25%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em orange;
+}
+
+.radio_vote:checked::before {
+    transform: scale(1);
+}

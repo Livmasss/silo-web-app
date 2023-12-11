@@ -1,0 +1,17 @@
+@import "style.css";
+
+.room {
+    display: block;
+    text-align: center;
+    font-size: 40px;
+}
+
+.room button {
+    font-size: 20px;
+    height: 48px;
+    width: 256px;
+}
+
+.player_elem {
+    display: inline-flex;
+}
