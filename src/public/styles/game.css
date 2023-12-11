@@ -1,14 +1,29 @@
 @import "style.css";
 @import "content.css";
 
-.game div {
+main {
+    padding: 0 3%;
+}
+.game_container {
     display: flex;
+    margin: auto;
+
+}
+.game {
+    display: flex;
+    flex-direction: column;
+}
+.game div {
     text-align: center;
+    margin: auto;
+}
+.game button {
     margin: auto;
 }
 
 .game article {
-    width: 50%;
+    width: 100%;
+    padding: 0 5%;
 }
 
 .game .card {
@@ -25,7 +40,6 @@
 }
 
 .game .properties {
-    margin: 20px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -33,9 +47,16 @@
 
 .game .table {
     display: flex;
+    width: 100%;
+    margin: 20px 0;
 }
 .game .table table{
     width: 100%;
+}
+
+.card {
+    display: flex;
+
 }
 
 .game .card_icon {
@@ -77,4 +98,15 @@
 
 .radio_vote:checked::before {
     transform: scale(1);
+}
+
+.host_panel {
+    width: 20%;
+    overflow: auto;
+    padding: 40px 0;
+}
+
+.host_panel button {
+    width: 90%;
+    height: 50px;
 }

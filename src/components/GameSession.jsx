@@ -78,95 +78,127 @@ function GameSession() {
     }
 
     return (
-        <main className="connection">
-            <div className="game">
-                <h1>Бункер</h1>
-                <div className="table">
-                    <table id="overview_table">
-                        <thead>
-                        <tr>
-                            <td>Игрок</td>
-                            <td>Пол</td>
-                            <td>Здоровье</td>
-                            <td>Человеческая черта</td>
-                            <td>Специальность</td>
-                            <td>Хобби</td>
-                            <td>Фобия</td>
-                            <td>Инвентарь</td>
-                            <td>Доп. сведения</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            openDataState !== null && openDataState
-                                .map((value, index) => (
-                                    <tr key={index}>
-                                        <td>{value.name}</td>
-                                        <td>{value.gender}</td>
-                                        <td>{value.health}</td>
-                                        <td>{value.personality}</td>
-                                        <td>{value.profession}</td>
-                                        <td>{value.hobby}</td>
-                                        <td>{value.phobia}</td>
-                                        <td>{value.inventory}</td>
-                                        <td>{value.information}</td>
-                                    </tr>
-                                )
-                            )
-                        }
-                        </tbody>
-                    </table>
-                </div>
-                <div className="properties">
-                    <PlayerPropertyCard id="gender_card" img={ic_gender} alt="gender" name="Пол"
-                                        desc={getPlayerProp("gender")}/>
-                    <PlayerPropertyCard id="health_card" img={ic_health} alt="health" name="Здоровье"
-                                        desc={getPlayerProp("health")}/>
-                    <PlayerPropertyCard id="personality_card" img={ic_personality} alt="personality"
-                                        name="Черта характера" desc={getPlayerProp("personality")}/>
-                    <PlayerPropertyCard id="profession_card" img={ic_profession} alt="profession"
-                                        name="Специальность" desc={getPlayerProp("profession")}/>
-                    <PlayerPropertyCard id="hobby_card" img={ic_hobby} alt="hobby" name="Хобби"
-                                        desc={getPlayerProp("hobby")}/>
-                    <PlayerPropertyCard id="phobia_card" img={ic_phobia} alt="phobia" name="Фобия"
-                                        desc={getPlayerProp("phobia")}/>
-                    <PlayerPropertyCard id="inventory_card" img={ic_inventory} alt="inventory" name="Инвентарь"
-                                        desc={getPlayerProp("inventory")}/>
-                    <PlayerPropertyCard id="information_card" img={ic_information} alt="information"
-                                        name="Доп. сведения" desc={getPlayerProp("information")}/>
-                    <PlayerPropertyCard id="action_card" img={ic_action} alt="action" name="Спец. возможность"
-                                        desc={getPlayerProp("action")}/>
-                </div>
-
-                <div className="table">
-                    <table id="auxiliary_table">
-                        <thead>
-                        <tr>
-                            <td>Выбор</td>
-                            <td>Игрок</td>
-                            <td>Голоса</td>
-                            <td>Спец. возможность</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            actionsState !== null && actionsState
-                                .map((value, index) => {
-                                    return (
+        <main>
+            <div className="game_container">
+                <aside className="host_panel">
+                    <button>Завершить игру</button>
+                    <button>Выгнать игрока</button>
+                    <button>Начать голосование</button>
+                    <button>Завершить голосование</button>
+                </aside>
+                <section className="game">
+                    <h1>Бункер</h1>
+                    <article>
+                        <ol>
+                            <li>
+                                Запасы еды: <b>108</b> человеко-месяцев
+                            </li>
+                            <li>
+                                Запасы воды: <b>156</b> человеко-месяцев
+                            </li>
+                            <li>
+                                Спальные места: <b>3</b>
+                            </li>
+                            <li>
+                                Жилая площадь бункера: <b>15</b> квадратных метров
+                            </li>
+                            <li>
+                                Дополнительно:
+                                <p>Кухня</p>
+                                <p>Ванная</p>
+                                <p>Туалет</p>
+                                <p>Оружейная комната заперта, ключ может быть в бункере, однако его нужно найти</p>
+                            </li>
+                        </ol>
+                    </article>
+                    <div className="table">
+                        <table id="overview_table">
+                            <thead>
+                            <tr>
+                                <td>Игрок</td>
+                                <td>Пол</td>
+                                <td>Здоровье</td>
+                                <td>Человеческая черта</td>
+                                <td>Специальность</td>
+                                <td>Хобби</td>
+                                <td>Фобия</td>
+                                <td>Инвентарь</td>
+                                <td>Доп. сведения</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                openDataState !== null && openDataState
+                                    .map((value, index) => (
                                         <tr key={index}>
-                                            <td>
-                                                <input className="radio_vote" type="radio" id={value.player} name="vote"/>
-                                            </td>
-                                            <td>{value.player}</td>
-                                            <td>{value.votes.join(", ")}</td>
-                                            <td>{value.action}</td>
+                                            <td>{value.name}</td>
+                                            <td>{value.gender}</td>
+                                            <td>{value.health}</td>
+                                            <td>{value.personality}</td>
+                                            <td>{value.profession}</td>
+                                            <td>{value.hobby}</td>
+                                            <td>{value.phobia}</td>
+                                            <td>{value.inventory}</td>
+                                            <td>{value.information}</td>
                                         </tr>
                                     )
-                                })
-                        }
-                        </tbody>
-                    </table>
-                </div>
+                                )
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <section className="properties">
+                        <PlayerPropertyCard id="gender_card" img={ic_gender} alt="gender" name="Пол"
+                                            desc={getPlayerProp("gender")}/>
+                        <PlayerPropertyCard id="health_card" img={ic_health} alt="health" name="Здоровье"
+                                            desc={getPlayerProp("health")}/>
+                        <PlayerPropertyCard id="personality_card" img={ic_personality} alt="personality"
+                                            name="Черта характера" desc={getPlayerProp("personality")}/>
+                        <PlayerPropertyCard id="profession_card" img={ic_profession} alt="profession"
+                                            name="Специальность" desc={getPlayerProp("profession")}/>
+                        <PlayerPropertyCard id="hobby_card" img={ic_hobby} alt="hobby" name="Хобби"
+                                            desc={getPlayerProp("hobby")}/>
+                        <PlayerPropertyCard id="phobia_card" img={ic_phobia} alt="phobia" name="Фобия"
+                                            desc={getPlayerProp("phobia")}/>
+                        <PlayerPropertyCard id="inventory_card" img={ic_inventory} alt="inventory" name="Инвентарь"
+                                            desc={getPlayerProp("inventory")}/>
+                        <PlayerPropertyCard id="information_card" img={ic_information} alt="information"
+                                            name="Доп. сведения" desc={getPlayerProp("information")}/>
+                        <PlayerPropertyCard id="action_card" img={ic_action} alt="action" name="Спец. возможность"
+                                            desc={getPlayerProp("action")}/>
+                    </section>
+
+                    <div className="table">
+                        <table id="auxiliary_table">
+                            <thead>
+                            <tr>
+                                <td>Выбор</td>
+                                <td>Игрок</td>
+                                <td>Голоса</td>
+                                <td>Спец. возможность</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                actionsState !== null && actionsState
+                                    .map((value, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>
+                                                    <input className="radio_vote" type="radio" id={value.player} name="vote"/>
+                                                </td>
+                                                <td>{value.player}</td>
+                                                <td>{value.votes.join(", ")}</td>
+                                                <td>{value.action}</td>
+                                            </tr>
+                                        )
+                                    })
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <button>Проголосовать</button>
+                </section>
             </div>
         </main>
     )
