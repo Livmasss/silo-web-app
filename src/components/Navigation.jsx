@@ -18,7 +18,7 @@ function Navigation(props) {
         root.style.setProperty('--color-secondary', 'black')
         root.style.setProperty('--color-accent', 'black')
         root.style.setProperty('--color-background', 'bisque')
-        root.style.setProperty('--main-font-size', '48px')
+        root.style.setProperty('--main-font-size', '32px')
     }
 
     const setClassicTheme = () => {

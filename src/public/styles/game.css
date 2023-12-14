@@ -9,6 +9,7 @@ main {
     margin: auto;
 }
 .game {
+    width: 80%;
     display: flex;
     flex-direction: column;
 }
@@ -30,8 +31,8 @@ main {
     padding: 10px;
     border: 1px var(--color-accent) solid;
     border-radius: 10px;
-    width: 120px;
-    height: 220px;
+    width: 9em;
+    height: 14em;
     flex-direction: column;
     background: var(--color-background);
 
@@ -58,8 +59,7 @@ main {
 }
 
 .game .card_icon {
-    width: 90px;
-    height: 90px;
+    width: 4.5em;
     padding: 5px;
     display: flex;
     flex-wrap: wrap;
@@ -105,7 +105,25 @@ main {
     padding: 40px 0;
 }
 
+.game button {
+    width: 9em;
+    height: 3em;
+}
+
 .host_panel button {
     width: 90%;
-    height: 50px;
+    height: 3em;
+}
+
+@media (max-width: 73em) {
+    .game_container {
+        display: block;
+    }
+    .host_panel {
+        display: flex;
+        width: 100%;
+    }
+    .game {
+        width: 100%;
+    }
 }

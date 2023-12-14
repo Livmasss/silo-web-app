@@ -2,6 +2,7 @@
 
 * {
     color: var(--color-text);
+    font-size: var(--main-font-size);
 }
 nav {
     background: var(--color-background);
@@ -22,7 +23,7 @@ nav img {
     background-color: var(--color-background);
     border-radius: 50%;
     padding: 3px;
-    width: 53px;
+    width: 2.5em;
     right: 0;
     position: absolute;
     margin: auto 10px auto auto;
@@ -112,15 +113,20 @@ td {
 
 input, button, body{
     background: var(--color-background);
-    border: 2px black solid;
+}
+
+input, button {
+    border: 2px var(--color-text) solid;
+    height: 2em;
+    width: 14em;
 }
 
 button {
     color: var(--color-accent);
     border-radius: 7px;
     margin: 6px;
-    height: 32px;
-    width: 128px;
+    height: 2em;
+    width: 7em;
 }
 button:hover {
     color: var(--color-text);
