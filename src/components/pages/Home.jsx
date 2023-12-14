@@ -14,8 +14,6 @@ function Home() {
 
     return (
         <div className="home">
-            <Navigation/>
-
             <article className="introduction">
                 Добро пожаловать в игру "<span>Бункер</span>"!<br/>
                 Твоя основная задача - попасть в бункер<br/>

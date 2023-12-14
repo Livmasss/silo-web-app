@@ -4,8 +4,6 @@ import Navigation from "../Navigation";
 function Rules() {
     return (
         <div className="rules">
-            <Navigation/>
-
             <h1>Правила игры</h1>
 
             <div>

@@ -13,7 +13,7 @@
 .home input {
     border-radius: 7px;
     border: solid;
-    color: whitesmoke;
+    color: var(--color-text);
 
     font-size: 18px;
 }

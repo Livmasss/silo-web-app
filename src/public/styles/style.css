@@ -1,20 +1,31 @@
+@import "classic-vars.css";
+
 * {
-    color: whitesmoke;
+    color: var(--color-text);
 }
 nav {
-    background: black;
+    background: var(--color-background);
     overflow: hidden;
-    border-bottom: orange 1px solid;
+    border-bottom: var(--color-accent) 1px solid;
 }
 nav a {
-    color: orange;
+    color: var(--color-accent);
     float: left;
     text-align: center;
     padding: 15px 15px;
     font-size: 1.5em;
 }
 nav a:hover {
-    color: whitesmoke;
+    color: var(--color-text);
+}
+nav img {
+    background-color: var(--color-background);
+    border-radius: 50%;
+    padding: 3px;
+    width: 53px;
+    right: 0;
+    position: absolute;
+    margin: auto 10px auto auto;
 }
 body {
     font-size: 16px;
@@ -35,27 +46,27 @@ p {
     text-indent: 5vw;
 }
 span {
-    color: orange;
+    color: var(--color-accent);
 }
 strong {
-    color: orange;
+    color: var(--color-accent);
 }
 h1 {
     margin: 0;
     padding: 15px;
-    color: orange;
+    color: var(--color-accent);
     font-size: 2em;
     text-align: center;
 }
 h2 {
     font-size: 1.5em;
-    color: orange;
+    color: var(--color-accent);
     text-indent: 15vw;
 }
 h3 {
     text-indent: 7vw;
     font-size: 1em;
-    color: chocolate;
+    color: var(--color-secondary);
 }
 h4 {
     text-align: center;
@@ -72,7 +83,7 @@ ul {
  }
 ul li::before {
     content: "•";
-    color: orange;
+    color: var(--color-accent);
     margin-left: -1em;
     display: inline-block;
     width: 1em;
@@ -83,7 +94,7 @@ ol {
 }
 ol li::before {
     content: counter(li);
-    color: orange;
+    color: var(--color-accent);
     margin-left: -1em;
     display: inline-block;
     width: 1em;
@@ -91,25 +102,26 @@ ol li::before {
 
 table {
     margin: 8px;
-    border: chocolate solid 2px;
+    border: var(--color-secondary) solid 2px;
     text-align: center;
     border-collapse: collapse;
 }
 td {
-    border: chocolate dotted 1px;
+    border: var(--color-secondary) dotted 1px;
 }
 
 input, button, body{
-    background: black;
+    background: var(--color-background);
+    border: 2px black solid;
 }
 
 button {
-    color: orange;
+    color: var(--color-accent);
     border-radius: 7px;
     margin: 6px;
     height: 32px;
     width: 128px;
 }
 button:hover {
-    color: whitesmoke;
+    color: var(--color-text);
 }

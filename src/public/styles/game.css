@@ -28,12 +28,12 @@ main {
 .game .card {
     margin: 5px;
     padding: 10px;
-    border: 1px orange solid;
+    border: 1px var(--color-accent) solid;
     border-radius: 10px;
     width: 120px;
     height: 220px;
     flex-direction: column;
-    background: black;
+    background: var(--color-background);
 
     word-break: break-all;
 }
@@ -55,7 +55,6 @@ main {
 
 .card {
     display: flex;
-
 }
 
 .game .card_icon {
@@ -67,7 +66,8 @@ main {
 }
 
 .game .card_icon img {
-    color: orange;
+    fill-rule: nonzero;
+    fill: var(--color-accent);
     width: inherit;
     margin: auto;
 }
@@ -76,7 +76,7 @@ main {
     appearance: none;
 
     border-radius: 25%;
-    border: 0.15em solid whitesmoke;
+    border: 0.15em solid var(--color-text);
 
     margin: 0;
     width: 1.55em;
@@ -92,7 +92,7 @@ main {
     border-radius: 25%;
     transform: scale(0);
     transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em orange;
+    box-shadow: inset 1em 1em var(--color-accent);
 }
 
 .radio_vote:checked::before {

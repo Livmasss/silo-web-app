@@ -1,19 +1,30 @@
 import "../public/styles/game.css"
 
-import ic_gender from '../public/imgs/ic_gender.svg'
-import ic_health from '../public/imgs/ic_health.svg'
-import ic_personality from '../public/imgs/ic_personality.svg'
-import ic_profession from '../public/imgs/ic_profession.svg'
-import ic_hobby from '../public/imgs/ic_hobby.svg'
-import ic_phobia from '../public/imgs/ic_phobia.svg'
-import ic_inventory from '../public/imgs/ic_inventory.svg'
-import ic_information from '../public/imgs/ic_information.svg'
-import ic_action from '../public/imgs/ic_action.svg'
+import ic_gender from '../public/imgs/icons/classic/ic_gender.svg'
+import ic_health from '../public/imgs/icons/classic/ic_health.svg'
+import ic_personality from '../public/imgs/icons/classic/ic_personality.svg'
+import ic_profession from '../public/imgs/icons/classic/ic_profession.svg'
+import ic_hobby from '../public/imgs/icons/classic/ic_hobby.svg'
+import ic_phobia from '../public/imgs/icons/classic/ic_phobia.svg'
+import ic_inventory from '../public/imgs/icons/classic/ic_inventory.svg'
+import ic_information from '../public/imgs/icons/classic/ic_information.svg'
+import ic_action from '../public/imgs/icons/classic/ic_action.svg'
+
+import ic_gender_special from '../public/imgs/icons/special/ic_gender.svg'
+import ic_health_special from '../public/imgs/icons/special/ic_health.svg'
+import ic_personality_special from '../public/imgs/icons/special/ic_personality.svg'
+import ic_profession_special from '../public/imgs/icons/special/ic_profession.svg'
+import ic_hobby_special from '../public/imgs/icons/special/ic_hobby.svg'
+import ic_phobia_special from '../public/imgs/icons/special/ic_phobia.svg'
+import ic_inventory_special from '../public/imgs/icons/special/ic_inventory.svg'
+import ic_information_special from '../public/imgs/icons/special/ic_information.svg'
+import ic_action_special from '../public/imgs/icons/special/ic_action.svg'
 
 import PlayerPropertyCard from "./PlayerPropertyCard";
 import {useEffect, useState} from "react";
 
-function GameSession() {
+function GameSession(props) {
+
     const [playerState, setPlayerState] = useState(null);
     const [openDataState, setOpenDataState] = useState(null);
     const [actionsState, setActionsState] = useState(null);
@@ -149,23 +160,23 @@ function GameSession() {
                         </table>
                     </div>
                     <section className="properties">
-                        <PlayerPropertyCard id="gender_card" img={ic_gender} alt="gender" name="Пол"
+                        <PlayerPropertyCard id="gender_card" img={!props.specialState ? ic_gender: ic_gender_special} alt="gender" name="Пол"
                                             desc={getPlayerProp("gender")}/>
-                        <PlayerPropertyCard id="health_card" img={ic_health} alt="health" name="Здоровье"
+                        <PlayerPropertyCard id="health_card" img={!props.specialState ? ic_health: ic_health_special} alt="health" name="Здоровье"
                                             desc={getPlayerProp("health")}/>
-                        <PlayerPropertyCard id="personality_card" img={ic_personality} alt="personality"
+                        <PlayerPropertyCard id="personality_card" img={!props.specialState ? ic_personality: ic_personality_special} alt="personality"
                                             name="Черта характера" desc={getPlayerProp("personality")}/>
-                        <PlayerPropertyCard id="profession_card" img={ic_profession} alt="profession"
+                        <PlayerPropertyCard id="profession_card" img={!props.specialState ? ic_profession: ic_profession_special} alt="profession"
                                             name="Специальность" desc={getPlayerProp("profession")}/>
-                        <PlayerPropertyCard id="hobby_card" img={ic_hobby} alt="hobby" name="Хобби"
+                        <PlayerPropertyCard id="hobby_card" img={!props.specialState ? ic_hobby: ic_hobby_special} alt="hobby" name="Хобби"
                                             desc={getPlayerProp("hobby")}/>
-                        <PlayerPropertyCard id="phobia_card" img={ic_phobia} alt="phobia" name="Фобия"
+                        <PlayerPropertyCard id="phobia_card" img={!props.specialState ? ic_phobia: ic_phobia_special} alt="phobia" name="Фобия"
                                             desc={getPlayerProp("phobia")}/>
-                        <PlayerPropertyCard id="inventory_card" img={ic_inventory} alt="inventory" name="Инвентарь"
+                        <PlayerPropertyCard id="inventory_card" img={!props.specialState ? ic_inventory: ic_inventory_special} alt="inventory" name="Инвентарь"
                                             desc={getPlayerProp("inventory")}/>
-                        <PlayerPropertyCard id="information_card" img={ic_information} alt="information"
+                        <PlayerPropertyCard id="information_card" img={!props.specialState ? ic_information: ic_information_special} alt="information"
                                             name="Доп. сведения" desc={getPlayerProp("information")}/>
-                        <PlayerPropertyCard id="action_card" img={ic_action} alt="action" name="Спец. возможность"
+                        <PlayerPropertyCard id="action_card" img={!props.specialState ? ic_action: ic_action_special} alt="action" name="Спец. возможность"
                                             desc={getPlayerProp("action")}/>
                     </section>
 
