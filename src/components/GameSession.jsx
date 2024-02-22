@@ -30,7 +30,7 @@ function GameSession(props) {
     const [actionsState, setActionsState] = useState(null);
 
     const getPlayerData = async () => {
-        const response = await fetch('/api/player_data');
+        const response = await fetch('/player_data');
         const body = await response.json();
 
         if (response.status !== 200)
@@ -39,7 +39,7 @@ function GameSession(props) {
     };
 
     const getOpenData = async () => {
-        const response = await fetch('/api/players_open_data')
+        const response = await fetch('/players_open_data')
         const body = response.json()
 
         if (response.status !== 200)
@@ -48,7 +48,7 @@ function GameSession(props) {
     }
 
     const getActionsData = async () => {
-        const response = await fetch('/api/actions_data')
+        const response = await fetch('/actions_data')
         const body = response.json()
 
         if (response.status !== 200)
@@ -92,10 +92,10 @@ function GameSession(props) {
         <main>
             <div className="game_container">
                 <aside className="host_panel">
-                    <button>Завершить игру</button>
-                    <button>Выгнать игрока</button>
-                    <button>Начать голосование</button>
-                    <button>Завершить голосование</button>
+                    <button>Stop game</button>
+                    <button>Kick player</button>
+                    <button>Start voting</button>
+                    <button>Stop voting</button>
                 </aside>
                 <section className="game">
                     <h1>Бункер</h1>
@@ -209,7 +209,7 @@ function GameSession(props) {
                             </tbody>
                         </table>
                     </div>
-                    <button>Проголосовать</button>
+                    <button>Submit vote</button>
                 </section>
             </div>
         </main>

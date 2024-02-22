@@ -6,14 +6,14 @@ app.listen(port, () => console.log(`Listening on port ${port}`))
 app.get('/api', (req, res) => {
     res.send("Connected to server")
 })
-app.get('/api/player_data', (req, res) => {
+app.get('/player_data', (req, res) => {
     res.send(
         JSON.stringify({
             "gender": "Мужчина",
-            "health": "спид.",
+            "health": "Спид",
             "personality": "Уверенный",
             "profession": "Гид по туалетам",
-            "hobby": "ГейМер",
+            "hobby": "Геймер",
             "phobia": "Клоунофобия",
             "inventory": "Виагра",
             "information": "Работал в Росгвардии",
@@ -22,21 +22,21 @@ app.get('/api/player_data', (req, res) => {
     )
 })
 
-app.get('/api/actions_data', (req, res) => {
+app.get('/actions_data', (req, res) => {
     res.send(
         JSON.stringify( [
             {
                 "player": "Зубослеп",
                 "votes": [
-                    "Октябрина",
+                    "Евгения",
                     "Кринжеслав"
                 ],
                 "action": ""
             },
             {
-                "player": "Октябрина",
+                "player": "Евгения",
                 "votes": [],
-                "action": "Уменьшает запасы еды в бункере на 300"
+                "action": "Уменьшает запасы еды в бункере на 24"
             },
             {
                 "player": "Кринжеслав",
@@ -49,7 +49,7 @@ app.get('/api/actions_data', (req, res) => {
     )
 })
 
-app.get('/api/players_open_data', (req, res) => {
+app.get('/players_open_data', (req, res) => {
     res.send(
         JSON.stringify(
             [
@@ -61,12 +61,12 @@ app.get('/api/players_open_data', (req, res) => {
                     "profession": "Стоматолог",
                     "hobby": "",
                     "phobia": "",
-                    "inventory": "",
+                    "inventory": "Ящик пива",
                     "information": "",
                     "action": ""
                 },
                 {
-                    "name": "Октябрина",
+                    "name": "Евгения",
                     "gender": "Мужчина",
                     "health": "",
                     "personality": "",
@@ -74,13 +74,13 @@ app.get('/api/players_open_data', (req, res) => {
                     "hobby": "",
                     "phobia": "",
                     "inventory": "",
-                    "information": "",
+                    "information": "Работал в Росгвардии",
                     "action": ""
                 },
                 {
                     "name": "Кринжеслав",
                     "gender": "Мужчина",
-                    "health": "",
+                    "health": "Проблем нет",
                     "personality": "",
                     "profession": "Банкир",
                     "hobby": "",

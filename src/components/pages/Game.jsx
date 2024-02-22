@@ -9,7 +9,7 @@ function Game(props) {
 
     return (
         <div>
-            {!gameStarted ? <Room callback={onClickVisibility} players={["100000000000000000", "200000000000000000", "300000000000000000"]}/>: null}
+            {!gameStarted ? <Room callback={onClickVisibility} players={["Первый игрок", "Второй игрок", "Третий игрок"]}/>: null}
             {gameStarted ? <GameSession specialState={props.specialState}/>: null}
         </div>
     )
