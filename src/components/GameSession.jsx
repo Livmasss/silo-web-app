@@ -30,7 +30,7 @@ function GameSession(props) {
     const [actionsState, setActionsState] = useState(null);
 
     const getPlayerData = async () => {
-        const response = await fetch('/player_data');
+        const response = await fetch('/api/player_data')
         const body = await response.json();
 
         if (response.status !== 200)
@@ -39,7 +39,7 @@ function GameSession(props) {
     };
 
     const getOpenData = async () => {
-        const response = await fetch('/players_open_data')
+        const response = await fetch('/api/players_open_data')
         const body = response.json()
 
         if (response.status !== 200)
@@ -48,7 +48,7 @@ function GameSession(props) {
     }
 
     const getActionsData = async () => {
-        const response = await fetch('/actions_data')
+        const response = await fetch('/api/players_votes')
         const body = response.json()
 
         if (response.status !== 200)
@@ -67,16 +67,16 @@ function GameSession(props) {
     useEffect(() => {
         getOpenData()
             .then(res => {
-                setOpenDataState(res)
+                setOpenDataState(res.players)
+                console.log(res)
             })
             .catch(err => console.log(err))
     }, [])
 
-
     useEffect(() => {
         getActionsData()
             .then(res => {
-                setActionsState(res)
+                setActionsState(res["items"])
             })
             .catch(err => console.log(err))
     }, [])
@@ -199,9 +199,9 @@ function GameSession(props) {
                                                 <td>
                                                     <input className="radio_vote" type="radio" id={value.player} name="vote"/>
                                                 </td>
-                                                <td>{value.player}</td>
-                                                <td>{value.votes.join(", ")}</td>
-                                                <td>{value.action}</td>
+                                                <td>{value.player_id}</td>
+                                                <td>{value.voted_players_ids.join(", ")}</td>
+                                                <td>{openDataState[index].action}</td>
                                             </tr>
                                         )
                                     })

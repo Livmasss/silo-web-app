@@ -1,12 +1,12 @@
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 8080
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
 app.get('/api', (req, res) => {
     res.send("Connected to server")
 })
-app.get('/player_data', (req, res) => {
+app.get('/api/player_data', (req, res) => {
     res.send(
         JSON.stringify({
             "gender": "Мужчина",
@@ -22,7 +22,7 @@ app.get('/player_data', (req, res) => {
     )
 })
 
-app.get('/actions_data', (req, res) => {
+app.get('/api/actions_data', (req, res) => {
     res.send(
         JSON.stringify( [
             {
@@ -49,7 +49,7 @@ app.get('/actions_data', (req, res) => {
     )
 })
 
-app.get('/players_open_data', (req, res) => {
+app.get('/api/players_open_data', (req, res) => {
     res.send(
         JSON.stringify(
             [
