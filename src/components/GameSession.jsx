@@ -88,6 +88,11 @@ function GameSession(props) {
         return playerState[key]
     }
 
+    const get_names_by_ids = (voted_players_ids) =>
+        voted_players_ids.map((item) => {
+            return openDataState[item].name
+        })
+
     return (
         <main>
             <div className="game_container">
@@ -199,8 +204,8 @@ function GameSession(props) {
                                                 <td>
                                                     <input className="radio_vote" type="radio" id={value.player} name="vote"/>
                                                 </td>
-                                                <td>{value.player_id}</td>
-                                                <td>{value.voted_players_ids.join(", ")}</td>
+                                                <td>{openDataState[value.player_id].name}</td>
+                                                <td>{get_names_by_ids(value.voted_players_ids).join(", ")}</td>
                                                 <td>{openDataState[index].action}</td>
                                             </tr>
                                         )
