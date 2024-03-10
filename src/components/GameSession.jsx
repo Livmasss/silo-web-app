@@ -28,11 +28,6 @@ function GameSession(props) {
     const [playerState, setPlayerState] = useState(null);
     const [openDataState, setOpenDataState] = useState(null);
     const [actionsState, setActionsState] = useState(null);
-    // const [roomIdState, setRoomIdState] = useState(null);
-    // const [playerIdState, setPlayerIdState] = useState(null);
-    //
-    // setRoomIdState(0)
-    // setPlayerIdState(0)
 
     const getPlayerData = async () => {
         const response = await fetch('/api/player_data/10?player_id=15')

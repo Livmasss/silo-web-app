@@ -1,13 +1,13 @@
 import React, {useRef} from 'react';
 import "../../public/styles/home.css"
-import Navigation from "../Navigation";
 import {useNavigate} from 'react-router-dom';
+import {setConnectRoomId} from "../../roomManager";
 
 let roomRef
 let usernameRef
 let navigate
 
-function Home() {
+function Home(props) {
     usernameRef = useRef(null);
     roomRef = useRef(null);
     navigate = useNavigate()
@@ -45,31 +45,36 @@ function Home() {
                           id="join_name"
                           name="name"/></p>
                 <p><label htmlFor="join_room">Название комнаты</label></p>
-                <p><input type="text" id="join_room" name="room"/></p>
+                <p><input type="text"
+                          id="join_room"
+                          name="room"
+                onInput={onRoomIdInput}/></p>
                 <p><button id="connect_to_room" value="Start game">Join room</button></p>
             </article>
         </div>
     )
+    function createRoom() {
+        postRoomCreate().then( r => {
+            props.setCreatedRoomIdState(r.room_id)
+            navigate('/game')
+        })
+    }
 }
 
-function createRoom() {
-    navigate('/game');
-    return
-//
-//     console.log("connection")
-//     fetch("/create_room", {
-//         method: "POST",
-//         body: JSON.stringify({
-//         }),
-//         headers: {
-//             'Content-type': 'application/json; charset=UTF-8',
-//         }
-//     })
-//         .then(r => {
-//             alert("Post sent")
-//             navigate('/game');
-//         })
-//         .finally(() => alert("Post failed"))
+function onRoomIdInput(value) {
+    setConnectRoomId(value.target.value)
+}
+
+const postRoomCreate = async () => {
+    const response = await fetch("/api/rooms", {
+        method: "POST"
+    })
+    const body = response.json()
+
+    if (!response.ok)
+        return
+
+    return body
 }
 
 export default Home

@@ -3,6 +3,7 @@ import "../public/styles/room.css"
 function Room(props) {
     return (
         <div className="room">
+            <div>Номер комнаты: {props.createdRoomIdState}</div>
             <section>
                 <p>Игроки:</p>
                 <p>{props.players.length}/10</p>
