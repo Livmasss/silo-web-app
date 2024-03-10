@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import "../../public/styles/home.css"
 import {useNavigate} from 'react-router-dom';
 import {setConnectRoomId} from "../../roomManager";
+import {joinToRoom as sendJoinMessage} from "../../ws";
 
 let roomRef
 let usernameRef
@@ -49,7 +50,7 @@ function Home(props) {
                           id="join_room"
                           name="room"
                 onInput={onRoomIdInput}/></p>
-                <p><button id="connect_to_room" value="Start game">Join room</button></p>
+                <p><button onClick={joinToRoom} id="connect_to_room" value="Start game">Join room</button></p>
             </article>
         </div>
     )
@@ -58,6 +59,12 @@ function Home(props) {
             props.setCreatedRoomIdState(r.room_id)
             navigate('/game')
         })
+    }
+
+    function joinToRoom() {
+        sendJoinMessage()
+        props.setCreatedRoomIdState(null)
+        navigate('/game')
     }
 }
 

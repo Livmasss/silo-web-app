@@ -1,9 +1,12 @@
 import "../public/styles/room.css"
+import GameSession from "./GameSession";
+import React from "react";
 
 function Room(props) {
     return (
         <div className="room">
-            <div>Номер комнаты: {props.createdRoomIdState}</div>
+            {props.createdRoomIdState ? <div>Номер комнаты: {props.createdRoomIdState}</div>: null}
+
             <section>
                 <p>Игроки:</p>
                 <p>{props.players.length}/10</p>
