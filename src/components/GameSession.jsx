@@ -35,7 +35,7 @@ function GameSession(props) {
     // setPlayerIdState(0)
 
     const getPlayerData = async () => {
-        const response = await fetch('/api/player_data')
+        const response = await fetch('/api/player_data/10?player_id=15')
         const body = await response.json();
 
         if (response.status !== 200)
@@ -44,7 +44,7 @@ function GameSession(props) {
     };
 
     const getOpenData = async () => {
-        const response = await fetch('/api/players_open_data/10?player_id=15')
+        const response = await fetch('/api/players_open_data/10')
         const body = response.json()
 
         if (response.status !== 200)
@@ -53,7 +53,7 @@ function GameSession(props) {
     }
 
     const getActionsData = async () => {
-        const response = await fetch('/api/players_votes')
+        const response = await fetch('/api/players_votes/10')
         const body = response.json()
 
         if (response.status !== 200)
