@@ -2,7 +2,7 @@ import React, {useRef} from 'react';
 import "../../public/styles/home.css"
 import {useNavigate} from 'react-router-dom';
 import {setConnectRoomId} from "../../roomManager";
-import {joinToRoom as sendJoinMessage} from "../../ws";
+import {joinToRoom as sendJoinMessage, sendPing} from "../../ws";
 
 let roomRef
 let usernameRef
@@ -62,7 +62,8 @@ function Home(props) {
     }
 
     function joinToRoom() {
-        sendJoinMessage()
+        sendJoinMessage(document.getElementById('join_name').value)
+        sendPing()
         props.setCreatedRoomIdState(null)
         navigate('/game')
     }

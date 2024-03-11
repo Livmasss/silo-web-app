@@ -5,12 +5,14 @@ import {getConnectRoomId} from "./roomManager";
 const host = "http://localhost:8080"
 let stompClient
 
-export function initWSClient() {
+export function initWSClient(showVisitorsCallback, room_id) {
     let socket = new SockJS(`${host}/ws`)
     stompClient = Stomp.Stomp.over(socket);
 
     stompClient.connect({}, function(frame) {
         console.log('Connected: ' + frame)
+        subscribePong()
+        subscribeRoomVisitors(showVisitorsCallback, room_id)
     })
 
     stompClient.onWebSocketError = (error) => {
@@ -24,11 +26,27 @@ export function initWSClient() {
 }
 
 export function joinToRoom(name) {
-    console.log("Message sent")
     stompClient.send(`/app/connect_to_room/${getConnectRoomId()}`, {}, JSON.stringify({'name': name}))
 }
 
 export function sendPing() {
-    console.log("Message sent")
     stompClient.send('/app/ping', {}, {})
+}
+
+export function subscribeRoomVisitors(showVisitorsCallback, room_id) {
+    const handleSubscribe = (message) => {
+        const json = JSON.parse(message.body)
+        console.log(json)
+        showVisitorsCallback(json);
+    }
+
+    stompClient.subscribe(`/rooms/${room_id}`, handleSubscribe);
+}
+
+export function subscribePong() {
+    const handleSubscribe = (message) => {
+        console.log("Pong")
+    }
+
+    stompClient.subscribe('/pong', handleSubscribe)
 }

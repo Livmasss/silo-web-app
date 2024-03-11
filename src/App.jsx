@@ -6,11 +6,13 @@ import Rules from "./components/pages/Rules";
 import Game from "./components/pages/Game";
 import Navigation from "./components/Navigation";
 import {initWSClient} from "./ws";
+import {getConnectRoomId} from "./roomManager";
 
 function App() {
-    initWSClient()
-    const [specialState, setSpecialState] = useState(false);
-    const [createdRoomIdState, setCreatedRoomIdState] = useState(false);
+    const [specialState, setSpecialState] = useState(null)
+    const [createdRoomIdState, setCreatedRoomIdState] = useState(null)
+    const [visitorState, setVisitorState] = useState(null)
+    initWSClient(setVisitorState, createdRoomIdState ? createdRoomIdState: getConnectRoomId())
 
     return (
     <div className="App">
@@ -19,7 +21,7 @@ function App() {
         <Routes>
             <Route path="" element={<Home setCreatedRoomIdState={setCreatedRoomIdState} />}></Route>
             <Route path="/rules" element={<Rules />}></Route>
-            <Route path="/game" element={<Game createdRoomIdState={createdRoomIdState} specialState={specialState}/>}></Route>
+            <Route path="/game" element={<Game setVisitorState={setVisitorState} visitorState={visitorState} createdRoomIdState={createdRoomIdState} specialState={specialState}/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
