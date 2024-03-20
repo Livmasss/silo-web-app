@@ -1,15 +1,14 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import "../../public/styles/home.css"
 import {useNavigate} from 'react-router-dom';
 import {setConnectRoomId} from "../../roomManager";
 import {joinToRoom as sendJoinMessage, sendPing} from "../../ws";
 
 let roomRef
-let usernameRef
 let navigate
 
 function Home(props) {
-    usernameRef = useRef(null);
+    const [username, setUsername] = useState(null);
     roomRef = useRef(null);
     navigate = useNavigate()
 
@@ -27,14 +26,15 @@ function Home(props) {
 
                 <p><label htmlFor="new_name">Имя</label></p>
                 <p><input type="text"
-                          id="new_name"
-                          name="name"
-                          ref={roomRef}/></p>
+                          id="join_name"
+                          name="room"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}/></p>
                 <p><label htmlFor="new_room">Комната</label></p>
                 <p><input type="text"
                           id="new_room"
                           name="room"
-                          ref={usernameRef}/></p>
+                          ref={roomRef}/></p>
                 <p><button onClick={createRoom}  id="create_room" value="Start game">Create room</button></p>
             </article>
 
@@ -44,7 +44,9 @@ function Home(props) {
                 <p><label htmlFor="join_name">Имя</label></p>
                 <p><input type="text"
                           id="join_name"
-                          name="name"/></p>
+                          name="room"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}/></p>
                 <p><label htmlFor="join_room">Название комнаты</label></p>
                 <p><input type="text"
                           id="join_room"
@@ -54,8 +56,10 @@ function Home(props) {
             </article>
         </div>
     )
+
     function createRoom() {
-        postRoomCreate().then( r => {
+        postRoomCreate(username).then( r => {
+            console.log(username)
             props.setCreatedRoomIdState(r.room_id)
             navigate('/game')
         })
@@ -73,9 +77,15 @@ function onRoomIdInput(value) {
     setConnectRoomId(value.target.value)
 }
 
-const postRoomCreate = async () => {
+const postRoomCreate = async (name) => {
     const response = await fetch("/api/rooms", {
-        method: "POST"
+        method: "POST",
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+        body:JSON.stringify({
+            name: name
+        })
     })
     const body = response.json()
 
