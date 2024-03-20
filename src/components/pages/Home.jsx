@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react';
 import "../../public/styles/home.css"
 import {useNavigate} from 'react-router-dom';
-import {setConnectRoomId} from "../../roomManager";
-import {joinToRoom as sendJoinMessage, sendPing} from "../../ws";
+import {getConnectRoomId, setConnectRoomId} from "../../roomManager";
+import {joinToRoom as sendJoinMessage, sendPing, subscribeRoomVisitors} from "../../ws";
 
 let roomRef
 let navigate
@@ -62,12 +62,14 @@ function Home(props) {
             console.log(username)
             props.setCreatedRoomIdState(r.room_id)
             navigate('/game')
+            props.setVisitorState([username])
         })
     }
 
     function joinToRoom() {
-        sendJoinMessage(document.getElementById('join_name').value)
-        sendPing()
+        const room_name = document.getElementById('join_name').value
+        sendJoinMessage(room_name)
+        subscribeRoomVisitors(props.setVisitorState, getConnectRoomId())
         props.setCreatedRoomIdState(null)
         navigate('/game')
     }

@@ -10,8 +10,7 @@ export function initWSClient(showVisitorsCallback, room_id) {
     stompClient = Stomp.Stomp.over(socket);
 
     stompClient.connect({}, function(frame) {
-        console.log('Connected: ' + frame)
-        subscribePong()
+        console.log(`Room id: ${room_id}\nConnected: ${frame}`)
         subscribeRoomVisitors(showVisitorsCallback, room_id)
     })
 
@@ -26,6 +25,7 @@ export function initWSClient(showVisitorsCallback, room_id) {
 }
 
 export function joinToRoom(name) {
+    console.log(`Room id: ${getConnectRoomId()}`)
     stompClient.send(`/app/connect_to_room/${getConnectRoomId()}`, {}, JSON.stringify({'name': name}))
 }
 
