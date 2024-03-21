@@ -23,6 +23,7 @@ import ic_action_special from '../public/imgs/icons/special/ic_action.svg'
 import PlayerPropertyCard from "./PlayerPropertyCard";
 import {useEffect, useState} from "react";
 import HostPanel from "./HostPanel";
+import {initWSClient} from "../ws";
 
 function GameSession(props) {
     const [playerState, setPlayerState] = useState(null);
