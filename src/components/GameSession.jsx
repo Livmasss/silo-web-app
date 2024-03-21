@@ -22,9 +22,9 @@ import ic_action_special from '../public/imgs/icons/special/ic_action.svg'
 
 import PlayerPropertyCard from "./PlayerPropertyCard";
 import {useEffect, useState} from "react";
+import HostPanel from "./HostPanel";
 
 function GameSession(props) {
-
     const [playerState, setPlayerState] = useState(null);
     const [openDataState, setOpenDataState] = useState(null);
     const [actionsState, setActionsState] = useState(null);
@@ -96,12 +96,8 @@ function GameSession(props) {
     return (
         <main>
             <div className="game_container">
-                <aside className="host_panel">
-                    <button>Stop game</button>
-                    <button>Kick player</button>
-                    <button>Start voting</button>
-                    <button>Stop voting</button>
-                </aside>
+                {props.isHost ? <HostPanel/>: null}
+
                 <section className="game">
                     <h1>Бункер</h1>
                     <article>

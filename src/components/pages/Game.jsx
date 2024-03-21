@@ -11,7 +11,7 @@ function Game(props) {
     return (
         <div>
             {!props.gameStarted ? <Room visitorState={props.visitorState} createdRoomIdState={props.createdRoomIdState} startGameCallback={onClickVisibility}/>: null}
-            {props.gameStarted ? <GameSession specialState={props.specialState}/>: null}
+            {props.gameStarted ? <GameSession specialState={props.specialState} isHost={props.createdRoomIdState !== null}/>: null}
         </div>
     )
 }
