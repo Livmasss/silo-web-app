@@ -27,7 +27,7 @@ function Room(props) {
         </div>
     )
 
-    function startGame(e) {
+    function startGame() {
         props.startGameCallback()
         sendStartGameMessage(props.createdRoomIdState)
     }

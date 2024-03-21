@@ -48,7 +48,7 @@ export function subscribeRoomVisitors(showVisitorsCallback, room_id) {
 }
 
 export function subscribeGameStarted(room_id, startGameCallback) {
-    const handleSubscribe = (message) => {
+    const handleSubscribe = () => {
         console.log("Game started")
         startGameCallback()
     }
@@ -57,7 +57,7 @@ export function subscribeGameStarted(room_id, startGameCallback) {
 }
 
 export function subscribePong() {
-    const handleSubscribe = (message) => {
+    const handleSubscribe = () => {
         console.log("Pong")
     }
 

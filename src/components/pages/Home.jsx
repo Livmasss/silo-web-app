@@ -76,7 +76,7 @@ function Home(props) {
     }
 
     function gameStartedCallback() {
-        props.setVisitorState(true)
+        props.setGameStarted(true)
     }
 }
 

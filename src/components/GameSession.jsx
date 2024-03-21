@@ -197,6 +197,7 @@ function GameSession(props) {
                             </thead>
                             <tbody>
                             {
+                                openDataState ?
                                 actionsState !== null && actionsState
                                     .map((value, index) => {
                                         return (
@@ -209,7 +210,7 @@ function GameSession(props) {
                                                 <td>{openDataState[index].action}</td>
                                             </tr>
                                         )
-                                    })
+                                    }): null
                             }
                             </tbody>
                         </table>
