@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import "../../public/styles/home.css"
 import {useNavigate} from 'react-router-dom';
 import {getConnectRoomId, setConnectRoomId} from "../../roomManager";
-import {joinToRoom as sendJoinMessage, sendPing, subscribeRoomVisitors} from "../../ws";
+import {joinToRoom as sendJoinMessage, subscribeGameStarted, subscribeRoomVisitors} from "../../ws";
 
 let roomRef
 let navigate
@@ -70,10 +70,16 @@ function Home(props) {
         const room_name = document.getElementById('join_name').value
         sendJoinMessage(room_name)
         subscribeRoomVisitors(props.setVisitorState, getConnectRoomId())
+        subscribeGameStarted(getConnectRoomId(), gameStartedCallback)
         props.setCreatedRoomIdState(null)
         navigate('/game')
     }
+
+    function gameStartedCallback() {
+        props.setVisitorState(true)
+    }
 }
+
 
 function onRoomIdInput(value) {
     setConnectRoomId(value.target.value)

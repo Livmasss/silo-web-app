@@ -1,7 +1,8 @@
 import "../public/styles/room.css"
-import React, {useState} from "react";
+import React from "react";
 
 function Room(props) {
+
     return (
         <div className="room">
             {props.createdRoomIdState ? <div>Номер комнаты: {props.createdRoomIdState}</div>: null}
@@ -12,7 +13,8 @@ function Room(props) {
                 <div>
                     {
                         props.visitorState.map((value, index) => {
-                            return <div className="player_elem">
+                            return <div className="player_elem"
+                            key={value}>
                                 {index !== 0 ? ', '+value : value}
                             </div>
                         })
@@ -20,8 +22,9 @@ function Room(props) {
                 </div>
             </section>
 
-            <button onClick={props.callback}>Start game</button>
+            <button onClick={props.startGameCallback}>Start game</button>
         </div>
+
     )
 }
 

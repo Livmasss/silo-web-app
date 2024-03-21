@@ -5,7 +5,7 @@ import {getConnectRoomId} from "./roomManager";
 const host = "http://localhost:8080"
 let stompClient
 
-export function initWSClient(showVisitorsCallback, room_id) {
+export function initWSClient(room_id, showVisitorsCallback) {
     let socket = new SockJS(`${host}/ws`)
     stompClient = Stomp.Stomp.over(socket);
 
@@ -33,6 +33,10 @@ export function sendPing() {
     stompClient.send('/app/ping', {}, {})
 }
 
+export function startGame(room_id) {
+    stompClient.send(`/app/start_game/${room_id}`, {}, {})
+}
+
 export function subscribeRoomVisitors(showVisitorsCallback, room_id) {
     const handleSubscribe = (message) => {
         const json = JSON.parse(message.body)
@@ -41,6 +45,15 @@ export function subscribeRoomVisitors(showVisitorsCallback, room_id) {
     }
 
     stompClient.subscribe(`/rooms/${room_id}`, handleSubscribe);
+}
+
+export function subscribeGameStarted(room_id, startGameCallback) {
+    const handleSubscribe = (message) => {
+        console.log("Game started")
+        startGameCallback()
+    }
+
+    stompClient.subscribe(`/game_started/${room_id}`, handleSubscribe)
 }
 
 export function subscribePong() {
