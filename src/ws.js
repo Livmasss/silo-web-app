@@ -33,7 +33,7 @@ export function sendPing() {
     stompClient.send('/app/ping', {}, {})
 }
 
-export function startGame(room_id) {
+export function sendStartGameMessage(room_id) {
     stompClient.send(`/app/start_game/${room_id}`, {}, {})
 }
 

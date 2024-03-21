@@ -5,8 +5,7 @@ import React from "react";
 function Game(props) {
 
     const onClickVisibility = () => {
-        if (props.createdRoomIdState)
-            props.setGameStarted(true)
+        props.setGameStarted(true)
     }
 
     return (

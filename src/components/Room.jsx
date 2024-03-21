@@ -1,5 +1,6 @@
 import "../public/styles/room.css"
 import React from "react";
+import {sendStartGameMessage} from "../ws";
 
 function Room(props) {
 
@@ -22,10 +23,14 @@ function Room(props) {
                 </div>
             </section>
 
-            <button onClick={props.startGameCallback}>Start game</button>
+            {props.createdRoomIdState ? <button onClick={startGame}>Start game</button>: null}
         </div>
-
     )
+
+    function startGame(e) {
+        props.startGameCallback()
+        sendStartGameMessage(props.createdRoomIdState)
+    }
 }
 
 export default Room
