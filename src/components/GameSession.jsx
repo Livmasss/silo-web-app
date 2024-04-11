@@ -30,8 +30,8 @@ function GameSession(props) {
     const [actionsState, setActionsState] = useState(null);
 
     const getPlayerData = async () => {
-        console.log(`/api/player_data/${props.roomIdState}?player_id=0`)
-        const response = await fetch(`/api/player_data/${props.roomIdState}?player_id=0`)
+        console.log(`/api/player_data/${props.roomIdState}?player_id=${props.playerIdState}`)
+        const response = await fetch(`/api/player_data/${props.roomIdState}?player_id=${props.playerIdState}`)
         const body = await response.json();
 
         if (response.status !== 200)

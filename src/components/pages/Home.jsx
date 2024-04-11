@@ -1,14 +1,13 @@
 import React, {useRef, useState} from 'react';
 import "../../public/styles/home.css"
 import {useNavigate} from 'react-router-dom';
-import {getConnectRoomId} from "../../roomManager";
 import {joinToRoom as sendJoinMessage, subscribeGameStarted, subscribeRoomVisitors} from "../../ws";
 
 let roomRef
 let navigate
 
 function Home(props) {
-    const [username, setUsername] = useState(null);
+    const [usernameState, setUsernameState] = useState(null);
     roomRef = useRef(null);
     navigate = useNavigate()
 
@@ -28,8 +27,8 @@ function Home(props) {
                 <p><input type="text"
                           id="join_name"
                           name="room"
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}/></p>
+                          value={usernameState}
+                          onChange={(e) => setUsernameState(e.target.value)}/></p>
                 <p><label htmlFor="new_room">Комната</label></p>
                 <p><input type="text"
                           id="new_room"
@@ -45,8 +44,8 @@ function Home(props) {
                 <p><input type="text"
                           id="join_name"
                           name="room"
-                          value={username}
-                          onChange={(e) => setUsername(e.target.value)}/></p>
+                          value={usernameState}
+                          onChange={(e) => setUsernameState(e.target.value)}/></p>
                 <p><label htmlFor="join_room">Название комнаты</label></p>
                 <p><input type="text"
                           id="join_room"
@@ -58,12 +57,12 @@ function Home(props) {
     )
 
     function createRoom() {
-        postRoomCreate(username).then( r => {
-            console.log(username)
+        postRoomCreate(usernameState).then( r => {
             props.setRoomIdState(r.room_id)
             props.setIsHostState(true)
             navigate('/game')
-            props.setVisitorState([username])
+            props.setVisitorState([usernameState])
+            props.setPlayerIdState(0)
         })
     }
 
@@ -78,12 +77,24 @@ function Home(props) {
 
     function gameStartedCallback() {
         props.setGameStarted(true)
+        getPlayerId(props.roomIdState, usernameState).then(r => {
+            props.setPlayerIdState(r)
+            console.log("Player id: " + r)
+        })
     }
 
     function onRoomIdInput(value) {
         props.setRoomIdState(value.target.value)
-        console.log(value.target.value)
     }
+}
+
+const getPlayerId = async (roomId, playerName) => {
+    const response = await fetch(`api/player_id/${roomId}?player_id=${playerName}`)
+    const body = response.json()
+
+    if (!response.ok)
+        return
+    return body
 }
 
 const postRoomCreate = async (name) => {

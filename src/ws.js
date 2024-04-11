@@ -1,6 +1,5 @@
 import * as SockJS from 'sockjs-client';
 import * as Stomp from '@stomp/stompjs'
-import {getConnectRoomId} from "./roomManager";
 
 const host = "http://localhost:8080"
 let stompClient
@@ -54,12 +53,4 @@ export function subscribeGameStarted(room_id, startGameCallback) {
     }
 
     stompClient.subscribe(`/game_started/${room_id}`, handleSubscribe)
-}
-
-export function subscribePong() {
-    const handleSubscribe = () => {
-        console.log("Pong")
-    }
-
-    stompClient.subscribe('/pong', handleSubscribe)
 }
