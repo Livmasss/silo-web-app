@@ -6,7 +6,7 @@ function Room(props) {
 
     return (
         <div className="room">
-            {props.createdRoomIdState ? <div>Номер комнаты: {props.createdRoomIdState}</div>: null}
+            {props.isHostState ? <div>Номер комнаты: {props.createdRoomIdState}</div>: null}
 
             <section>
                 <p>Игроки:</p>
@@ -23,7 +23,7 @@ function Room(props) {
                 </div>
             </section>
 
-            {props.createdRoomIdState ? <button onClick={startGame}>Start game</button>: null}
+            {props.isHostState ? <button onClick={startGame}>Start game</button>: null}
         </div>
     )
 

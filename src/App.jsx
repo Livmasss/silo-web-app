@@ -10,20 +10,21 @@ import {getConnectRoomId} from "./roomManager";
 
 function App() {
     const [specialState, setSpecialState] = useState(null)
-    const [createdRoomIdState, setCreatedRoomIdState] = useState(null)
+    const [roomIdState, setRoomIdState] = useState(null)
+    const [isHostState, setIsHostState] = useState(false)
     const [visitorsState, setVisitorsState] = useState([])
     const [gameStarted, setGameStarted] = React.useState(false)
 
-    initWSClient(createdRoomIdState || getConnectRoomId(), setVisitorsState)
+    initWSClient(roomIdState, setVisitorsState)
 
     return (
     <div className="App">
       <BrowserRouter>
           <Navigation setSpecialState={setSpecialState} specialState={specialState}/>
         <Routes>
-            <Route path="" element={<Home setGameStarted={setGameStarted} setVisitorState={setVisitorsState} setCreatedRoomIdState={setCreatedRoomIdState} />}></Route>
+            <Route path="" element={<Home setGameStarted={setGameStarted} setVisitorState={setVisitorsState} setRoomIdState={setRoomIdState} roomIdState={roomIdState} setIsHostState={setIsHostState}/>}></Route>
             <Route path="/rules" element={<Rules />}></Route>
-            <Route path="/game" element={<Game gameStarted={gameStarted} setGameStarted={setGameStarted} setVisitorState={setVisitorsState} visitorState={visitorsState} createdRoomIdState={createdRoomIdState} specialState={specialState}/>}></Route>
+            <Route path="/game" element={<Game isHostState={isHostState} gameStarted={gameStarted} setGameStarted={setGameStarted} setVisitorState={setVisitorsState} visitorState={visitorsState} roomIdState={roomIdState} specialState={specialState}/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

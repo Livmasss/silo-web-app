@@ -5,13 +5,13 @@ import {getConnectRoomId} from "./roomManager";
 const host = "http://localhost:8080"
 let stompClient
 
-export function initWSClient(room_id, showVisitorsCallback) {
+export function initWSClient(roomId, showVisitorsCallback) {
     let socket = new SockJS(`${host}/ws`)
     stompClient = Stomp.Stomp.over(socket);
 
     stompClient.connect({}, function(frame) {
-        console.log(`Room id: ${room_id}\nConnected: ${frame}`)
-        subscribeRoomVisitors(showVisitorsCallback, room_id)
+        console.log(`Room id: ${roomId}\nConnected: ${frame}`)
+        subscribeRoomVisitors(showVisitorsCallback, roomId)
     })
 
     stompClient.onWebSocketError = (error) => {
@@ -24,17 +24,17 @@ export function initWSClient(room_id, showVisitorsCallback) {
     };
 }
 
-export function joinToRoom(name) {
-    console.log(`Room id: ${getConnectRoomId()}`)
-    stompClient.send(`/app/connect_to_room/${getConnectRoomId()}`, {}, JSON.stringify({'name': name}))
+export function joinToRoom(name, roomId) {
+    console.log(`Room id: ${roomId}`)
+    stompClient.send(`/app/connect_to_room/${roomId}`, {}, JSON.stringify({'name': name}))
 }
 
 export function sendPing() {
     stompClient.send('/app/ping', {}, {})
 }
 
-export function sendStartGameMessage(room_id) {
-    stompClient.send(`/app/start_game/${room_id}`, {}, {})
+export function sendStartGameMessage(roomId) {
+    stompClient.send(`/app/start_game/${roomId}`, {}, {})
 }
 
 export function subscribeRoomVisitors(showVisitorsCallback, room_id) {

@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import "../../public/styles/home.css"
 import {useNavigate} from 'react-router-dom';
-import {getConnectRoomId, setConnectRoomId} from "../../roomManager";
+import {getConnectRoomId} from "../../roomManager";
 import {joinToRoom as sendJoinMessage, subscribeGameStarted, subscribeRoomVisitors} from "../../ws";
 
 let roomRef
@@ -60,29 +60,30 @@ function Home(props) {
     function createRoom() {
         postRoomCreate(username).then( r => {
             console.log(username)
-            props.setCreatedRoomIdState(r.room_id)
+            props.setRoomIdState(r.room_id)
+            props.setIsHostState(true)
             navigate('/game')
             props.setVisitorState([username])
         })
     }
 
     function joinToRoom() {
-        const room_name = document.getElementById('join_name').value
-        sendJoinMessage(room_name)
-        subscribeRoomVisitors(props.setVisitorState, getConnectRoomId())
-        subscribeGameStarted(getConnectRoomId(), gameStartedCallback)
-        props.setCreatedRoomIdState(null)
+        const username = document.getElementById('join_name').value
+        sendJoinMessage(username, props.roomIdState)
+        subscribeRoomVisitors(props.setVisitorState, props.roomIdState)
+        subscribeGameStarted(props.roomIdState, gameStartedCallback)
+        props.setIsHostState(false)
         navigate('/game')
     }
 
     function gameStartedCallback() {
         props.setGameStarted(true)
     }
-}
 
-
-function onRoomIdInput(value) {
-    setConnectRoomId(value.target.value)
+    function onRoomIdInput(value) {
+        props.setRoomIdState(value.target.value)
+        console.log(value.target.value)
+    }
 }
 
 const postRoomCreate = async (name) => {

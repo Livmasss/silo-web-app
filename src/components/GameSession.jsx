@@ -23,7 +23,6 @@ import ic_action_special from '../public/imgs/icons/special/ic_action.svg'
 import PlayerPropertyCard from "./PlayerPropertyCard";
 import {useEffect, useState} from "react";
 import HostPanel from "./HostPanel";
-import {initWSClient} from "../ws";
 
 function GameSession(props) {
     const [playerState, setPlayerState] = useState(null);
@@ -31,7 +30,8 @@ function GameSession(props) {
     const [actionsState, setActionsState] = useState(null);
 
     const getPlayerData = async () => {
-        const response = await fetch('/api/player_data/10?player_id=15')
+        console.log(`/api/player_data/${props.roomIdState}?player_id=0`)
+        const response = await fetch(`/api/player_data/${props.roomIdState}?player_id=0`)
         const body = await response.json();
 
         if (response.status !== 200)
