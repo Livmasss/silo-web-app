@@ -63,7 +63,7 @@ function GameSession(props) {
                 setPlayerState(res)
             })
             .catch(err => console.log(err));
-    }, [])
+    }, [props.playerIdState])
 
     useEffect(() => {
         getOpenData()
@@ -82,6 +82,10 @@ function GameSession(props) {
             .catch(err => console.log(err))
     }, [])
 
+    useEffect(() => {
+
+    }, [])
+
     const getPlayerProp = (key) => {
         if (playerState === null) {
             return null
@@ -96,6 +100,7 @@ function GameSession(props) {
 
     return (
         <main>
+            {props.playerIdState}
             <div className="game_container">
                 {props.isHost ? <HostPanel/>: null}
 
