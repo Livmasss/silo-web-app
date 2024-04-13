@@ -40,7 +40,7 @@ function GameSession(props) {
     };
 
     const getOpenData = async () => {
-        const response = await fetch('/api/players_open_data/10')
+        const response = await fetch(`/api/players_open_data/${props.roomIdState}`)
         const body = response.json()
 
         if (response.status !== 200)
@@ -49,7 +49,7 @@ function GameSession(props) {
     }
 
     const getActionsData = async () => {
-        const response = await fetch('/api/players_votes/10')
+        const response = await fetch(`/api/players_votes/${props.roomIdState}`)
         const body = response.json()
 
         if (response.status !== 200)
@@ -69,7 +69,6 @@ function GameSession(props) {
         getOpenData()
             .then(res => {
                 setOpenDataState(res.players)
-                console.log(res)
             })
             .catch(err => console.log(err))
     }, [])
@@ -100,7 +99,6 @@ function GameSession(props) {
 
     return (
         <main>
-            {props.playerIdState}
             <div className="game_container">
                 {props.isHost ? <HostPanel/>: null}
 
