@@ -36,10 +36,27 @@ export function sendStartGameMessage(roomId) {
     stompClient.send(`/app/start_game/${roomId}`, {}, {})
 }
 
+export function sendOpenPropertyMessage(roomId, playerId, propertyId) {
+    stompClient.send(`/app/game/open_property/${roomId}`, {}, 
+        JSON.stringify({
+            'player_id': playerId,
+            'property': propertyId
+        })
+    )
+}
+
+export function subscribeOpenPropertyMessage(showOpenDataState, room_id) {
+    const handleSubscribe = (message) => {
+        const json = JSON.parse(message.body)
+        showOpenDataState(json);
+    }
+
+    stompClient.subscribe(`/game/property/${room_id}`, handleSubscribe);
+}
+
 export function subscribeRoomVisitors(showVisitorsCallback, room_id) {
     const handleSubscribe = (message) => {
         const json = JSON.parse(message.body)
-        console.log(json)
         showVisitorsCallback(json);
     }
 

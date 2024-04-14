@@ -23,10 +23,10 @@ import ic_action_special from '../public/imgs/icons/special/ic_action.svg'
 import PlayerPropertyCard from "./PlayerPropertyCard";
 import {useEffect, useState} from "react";
 import HostPanel from "./HostPanel";
+import { subscribeOpenPropertyMessage } from "../ws"
 
 function GameSession(props) {
     const [playerState, setPlayerState] = useState(null);
-    const [openDataState, setOpenDataState] = useState(null);
     const [actionsState, setActionsState] = useState(null);
 
     const getPlayerData = async () => {
@@ -68,7 +68,7 @@ function GameSession(props) {
     useEffect(() => {
         getOpenData()
             .then(res => {
-                setOpenDataState(res.players)
+                props.setOpenDataState(res.players)
             })
             .catch(err => console.log(err))
     }, [])
@@ -81,10 +81,6 @@ function GameSession(props) {
             .catch(err => console.log(err))
     }, [])
 
-    useEffect(() => {
-
-    }, [])
-
     const getPlayerProp = (key) => {
         if (playerState === null) {
             return null
@@ -94,7 +90,9 @@ function GameSession(props) {
 
     const get_names_by_ids = (voted_players_ids) =>
         voted_players_ids.map((item) => {
-            return openDataState[item].name
+            console.log(item)
+            console.log(props.openDataState[item - 1])
+            return props.openDataState[item - 1].name
         })
 
     return (
@@ -145,7 +143,7 @@ function GameSession(props) {
                             </thead>
                             <tbody>
                             {
-                                openDataState !== null && openDataState
+                                props.openDataState !== null && props.openDataState
                                     .map((value, index) => (
                                         <tr key={index}>
                                             <td>{value.name}</td>
@@ -166,23 +164,40 @@ function GameSession(props) {
                     </div>
                     <section className="properties">
                         <PlayerPropertyCard id="gender_card" img={!props.specialState ? ic_gender: ic_gender_special} alt="gender" name="Пол"
-                                            desc={getPlayerProp("gender")}/>
+                                            roomIdState={props.roomIdState} playerIdState={props.playerIdState} property_id={0} desc={getPlayerProp("gender")}
+                                            setOpenDataState={props.setOpenDataState}/>
+                        
                         <PlayerPropertyCard id="health_card" img={!props.specialState ? ic_health: ic_health_special} alt="health" name="Здоровье"
-                                            desc={getPlayerProp("health")}/>
-                        <PlayerPropertyCard id="personality_card" img={!props.specialState ? ic_personality: ic_personality_special} alt="personality"
-                                            name="Черта характера" desc={getPlayerProp("personality")}/>
+                                            roomIdState={props.roomIdState} playerIdState={props.playerIdState} property_id={1} desc={getPlayerProp("health")}
+                                            setOpenDataState={props.setOpenDataState}/>
+                        
+                        <PlayerPropertyCard id="personality_card" img={!props.specialState ? ic_personality: ic_personality_special} alt="personalit
+                        setOpenDataState={props.setOpenDataState}y"
+                                            roomIdState={props.roomIdState} playerIdState={props.playerIdState} property_id={2} name="Черта характера" desc={getPlayerProp("personality")}/>
+                        
                         <PlayerPropertyCard id="profession_card" img={!props.specialState ? ic_profession: ic_profession_special} alt="profession"
-                                            name="Специальность" desc={getPlayerProp("profession")}/>
+                                            roomIdState={props.roomIdState} playerIdState={props.playerIdState} property_id={3} name="Специальность" desc={getPlayerProp("profession")}
+                                            setOpenDataState={props.setOpenDataState}/>
+                        
                         <PlayerPropertyCard id="hobby_card" img={!props.specialState ? ic_hobby: ic_hobby_special} alt="hobby" name="Хобби"
-                                            desc={getPlayerProp("hobby")}/>
+                                            roomIdState={props.roomIdState} playerIdState={props.playerIdState} property_id={4} desc={getPlayerProp("hobby")}
+                                            setOpenDataState={props.setOpenDataState}/>
+                        
                         <PlayerPropertyCard id="phobia_card" img={!props.specialState ? ic_phobia: ic_phobia_special} alt="phobia" name="Фобия"
-                                            desc={getPlayerProp("phobia")}/>
+                                            roomIdState={props.roomIdState} playerIdState={props.playerIdState} property_id={5} desc={getPlayerProp("phobia")}
+                                            setOpenDataState={props.setOpenDataState}/>
+                        
                         <PlayerPropertyCard id="inventory_card" img={!props.specialState ? ic_inventory: ic_inventory_special} alt="inventory" name="Инвентарь"
-                                            desc={getPlayerProp("inventory")}/>
+                                            roomIdState={props.roomIdState} playerIdState={props.playerIdState} property_id={6}  desc={getPlayerProp("inventory")}
+                                            setOpenDataState={props.setOpenDataState}/>
+                        
                         <PlayerPropertyCard id="information_card" img={!props.specialState ? ic_information: ic_information_special} alt="information"
-                                            name="Доп. сведения" desc={getPlayerProp("information")}/>
+                                            roomIdState={props.roomIdState} playerIdState={props.playerIdState} property_id={7} name="Доп. сведения" desc={getPlayerProp("information")}
+                                            setOpenDataState={props.setOpenDataState}/>
+                        
                         <PlayerPropertyCard id="action_card" img={!props.specialState ? ic_action: ic_action_special} alt="action" name="Спец. возможность"
-                                            desc={getPlayerProp("action")}/>
+                                            roomIdState={props.roomIdState} playerIdState={props.playerIdState} property_id={8} desc={getPlayerProp("action")}
+                                            setOpenDataState={props.setOpenDataState}/>
                     </section>
 
                     <div className="table">
@@ -197,7 +212,7 @@ function GameSession(props) {
                             </thead>
                             <tbody>
                             {
-                                openDataState ?
+                                props.openDataState ?
                                 actionsState !== null && actionsState
                                     .map((value, index) => {
                                         return (
@@ -205,9 +220,9 @@ function GameSession(props) {
                                                 <td>
                                                     <input className="radio_vote" type="radio" id={value.player} name="vote"/>
                                                 </td>
-                                                <td>{openDataState[value.player_id].name}</td>
+                                                <td>{props.openDataState[value.player_id].name}</td>
                                                 <td>{get_names_by_ids(value.voted_players_ids).join(", ")}</td>
-                                                <td>{openDataState[index].action}</td>
+                                                <td>{props.openDataState[index].action}</td>
                                             </tr>
                                         )
                                     }): null

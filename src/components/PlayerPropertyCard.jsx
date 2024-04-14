@@ -1,16 +1,20 @@
 import React from "react";
+import { sendOpenPropertyMessage } from "../ws";
 
-class PlayerPropertyCard extends React.Component{
-    render() {
-        return (
-            <div className="card">
-                {this.props.name}
-                <div className="card_icon">
-                    <img src={this.props.img} alt={this.props.alt}/>
-                </div>
-                {this.props.desc}
+function PlayerPropertyCard(props) {
+    return (
+        <div className="card" onClick={clickCallback}>
+            {props.name}
+            <div className="card_icon">
+                <img src={props.img} alt={props.alt}/>
             </div>
-        )
+            {props.desc}
+        </div>
+    )
+
+    
+    function clickCallback() {
+        sendOpenPropertyMessage(props.roomIdState, props.playerIdState, props.property_id)
     }
 }
 
