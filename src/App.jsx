@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './public/styles/App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./components/pages/Home";
@@ -16,7 +16,10 @@ function App() {
     const [gameStarted, setGameStarted] = React.useState(false)
     const [playerIdState, setPlayerIdState] = useState(null)
 
-    initWSClient(roomIdState, setVisitorsState, setOpenDataState)
+    useEffect(() => {
+      initWSClient(roomIdState, setVisitorsState, setOpenDataState)
+    },
+  [roomIdState, setVisitorsState, setOpenDataState])
 
     return (
     <div className="App">

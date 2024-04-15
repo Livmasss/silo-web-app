@@ -49,7 +49,10 @@ export function sendOpenPropertyMessage(roomId, playerId, propertyId) {
 export function subscribeOpenPropertyMessage(showOpenDataState, room_id) {
     const handleSubscribe = (message) => {
         const json = JSON.parse(message.body)
-        showOpenDataState(json);
+        if (json.length > 0){
+            console.log(`Response length: ${json.length}`)
+            showOpenDataState(json);
+        }
     }
 
     stompClient.subscribe(`/game/property/${room_id}`, handleSubscribe);
