@@ -4,13 +4,14 @@ import * as Stomp from '@stomp/stompjs'
 const host = "http://localhost:8080"
 let stompClient
 
-export function initWSClient(roomId, showVisitorsCallback) {
+export function initWSClient(roomId, showVisitorsCallback, setOpenDataState) {
     let socket = new SockJS(`${host}/ws`)
     stompClient = Stomp.Stomp.over(socket);
 
     stompClient.connect({}, function(frame) {
         console.log(`Room id: ${roomId}\nConnected: ${frame}`)
         subscribeRoomVisitors(showVisitorsCallback, roomId)
+        subscribeOpenPropertyMessage(setOpenDataState, roomId)
     })
 
     stompClient.onWebSocketError = (error) => {

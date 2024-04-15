@@ -16,7 +16,7 @@ function App() {
     const [gameStarted, setGameStarted] = React.useState(false)
     const [playerIdState, setPlayerIdState] = useState(null)
 
-    initWSClient(roomIdState, setVisitorsState)
+    initWSClient(roomIdState, setVisitorsState, setOpenDataState)
 
     return (
     <div className="App">

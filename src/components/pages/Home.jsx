@@ -69,8 +69,6 @@ function Home(props) {
     function joinToRoom() {
         const username = document.getElementById('join_name').value
         sendJoinMessage(username, props.roomIdState)
-        subscribeRoomVisitors(props.setVisitorState, props.roomIdState)
-        subscribeOpenPropertyMessage(props.setOpenDataState, props.roomIdState)
         subscribeGameStarted(props.roomIdState, gameStartedCallback)
         props.setIsHostState(false)
         navigate('/game')
