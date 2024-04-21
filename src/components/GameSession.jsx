@@ -23,11 +23,16 @@ import ic_action_special from '../public/imgs/icons/special/ic_action.svg'
 import PlayerPropertyCard from "./PlayerPropertyCard";
 import {useEffect, useState} from "react";
 import HostPanel from "./HostPanel";
-import { subscribeOpenPropertyMessage } from "../ws"
 
 function GameSession(props) {
     const [playerState, setPlayerState] = useState(null);
     const [actionsState, setActionsState] = useState(null);
+    const [voteTargetState, setVoteTargetState] = useState(null)
+
+    const onVoteTargetChanged = e => {
+        setVoteTargetState(e.target.value)
+        console.log(e.target.value)
+    }
 
     const getPlayerData = async () => {
         console.log(`/api/player_data/${props.roomIdState}?player_id=${props.playerIdState}`)
@@ -88,10 +93,25 @@ function GameSession(props) {
         return playerState[key]
     }
 
+    const postMakeVote = async (target_id) => {
+        const response = await fetch(`/api/vote/${props.roomIdState}`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body:JSON.stringify({
+                player_id: props.playerIdState,
+                target_id: target_id
+            })
+        })
+    }
+
+    const submitVote = () => {
+        postMakeVote(voteTargetState)
+    }
+
     const get_names_by_ids = (voted_players_ids) =>
         voted_players_ids.map((item) => {
-            console.log(item)
-            console.log(props.openDataState[item - 1])
             return props.openDataState[item - 1].name
         })
 
@@ -218,7 +238,11 @@ function GameSession(props) {
                                         return (
                                             <tr key={index}>
                                                 <td>
-                                                    <input className="radio_vote" type="radio" id={value.player} name="vote"/>
+                                                    <input className="radio_vote"
+                                                        type="radio"
+                                                        value={value.player_id}
+                                                        name="vote"
+                                                        onChange={onVoteTargetChanged}/>
                                                 </td>
                                                 <td>{props.openDataState[value.player_id].name}</td>
                                                 <td>{get_names_by_ids(value.voted_players_ids).join(", ")}</td>
@@ -230,7 +254,7 @@ function GameSession(props) {
                             </tbody>
                         </table>
                     </div>
-                    <button>Submit vote</button>
+                    <button onClick={submitVote}>Submit vote</button>
                 </section>
             </div>
         </main>
