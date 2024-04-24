@@ -4,7 +4,7 @@ import * as Stomp from '@stomp/stompjs'
 const host = "http://localhost:8080"
 let stompClient
 
-export function initWSClient(roomId, showVisitorsCallback, setOpenDataState) {
+export function initWSClient(roomId, showVisitorsCallback, setOpenDataState, finishVotingCallback) {
     let socket = new SockJS(`${host}/ws`)
     stompClient = Stomp.Stomp.over(socket);
 
@@ -12,6 +12,7 @@ export function initWSClient(roomId, showVisitorsCallback, setOpenDataState) {
         console.log(`Room id: ${roomId}\nConnected: ${frame}`)
         subscribeRoomVisitors(showVisitorsCallback, roomId)
         subscribeOpenPropertyMessage(setOpenDataState, roomId)
+        subscribeVotingFinished(roomId, finishVotingCallback) 
     })
 
     stompClient.onWebSocketError = (error) => {
@@ -35,6 +36,10 @@ export function sendPing() {
 
 export function sendStartGameMessage(roomId) {
     stompClient.send(`/app/start_game/${roomId}`, {}, {})
+}
+
+export function sendFinishVotingMessage(roomId) {
+    stompClient.send(`/app/game/finish_voting/${roomId}`, {}, {})
 }
 
 export function sendOpenPropertyMessage(roomId, playerId, propertyId) {
@@ -74,4 +79,14 @@ export function subscribeGameStarted(room_id, startGameCallback) {
     }
 
     stompClient.subscribe(`/game_started/${room_id}`, handleSubscribe)
+}
+
+export function subscribeVotingFinished(room_id, finishVotingCallback) {
+    const handleSubscribe = (message) => {
+        const json = JSON.parse(message.body)
+        console.log(`Voting finished: ${json}`)
+        finishVotingCallback(json["items"])
+    }
+
+    stompClient.subscribe(`/game/voting_finished/${room_id}`, handleSubscribe)
 }

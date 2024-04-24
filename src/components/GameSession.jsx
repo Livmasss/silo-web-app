@@ -23,15 +23,14 @@ import ic_action_special from '../public/imgs/icons/special/ic_action.svg'
 import PlayerPropertyCard from "./PlayerPropertyCard";
 import {useEffect, useState} from "react";
 import HostPanel from "./HostPanel";
+import { sendFinishVotingMessage } from "../ws"
 
 function GameSession(props) {
     const [playerState, setPlayerState] = useState(null);
-    const [actionsState, setActionsState] = useState(null);
     const [voteTargetState, setVoteTargetState] = useState(null)
 
     const onVoteTargetChanged = e => {
         setVoteTargetState(e.target.value)
-        console.log(e.target.value)
     }
 
     const getPlayerData = async () => {
@@ -81,7 +80,7 @@ function GameSession(props) {
     useEffect(() => {
         getActionsData()
             .then(res => {
-                setActionsState(res["items"])
+                props.setVotesState(res["items"])
             })
             .catch(err => console.log(err))
     }, [])
@@ -107,18 +106,33 @@ function GameSession(props) {
     }
 
     const submitVote = () => {
+        console.log(`Vote for: ${voteTargetState}`)
         postMakeVote(voteTargetState)
+    }
+    
+    const finishVoting = () => {
+        sendFinishVotingMessage(props.roomIdState)
+    }
+    
+    const putFinishVoting = async () => {
+        const response = await fetch(`/api/vote/${props.roomIdState}`, {
+            method: "PUT",
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body:JSON.stringify()
+        })
     }
 
     const get_names_by_ids = (voted_players_ids) =>
         voted_players_ids.map((item) => {
-            return props.openDataState[item - 1].name
+            return props.openDataState[item] ? props.openDataState[item].name : null
         })
 
     return (
         <main>
             <div className="game_container">
-                {props.isHost ? <HostPanel/>: null}
+                {props.isHost ? <HostPanel finishVotingCallback={finishVoting}/>: null}
 
                 <section className="game">
                     <h1>Бункер</h1>
@@ -233,10 +247,11 @@ function GameSession(props) {
                             <tbody>
                             {
                                 props.openDataState ?
-                                actionsState !== null && actionsState
+                                props.votesState !== null && props.votesState
                                     .map((value, index) => {
+                                        console.log(`Player id: ${value.player_id}`)
                                         return (
-                                            <tr key={index}>
+                                            props.openDataState[index] ? <tr key={index}>
                                                 <td>
                                                     <input className="radio_vote"
                                                         type="radio"
@@ -244,10 +259,11 @@ function GameSession(props) {
                                                         name="vote"
                                                         onChange={onVoteTargetChanged}/>
                                                 </td>
-                                                <td>{props.openDataState[value.player_id].name}</td>
+                                                <td>{props.openDataState[value.player_id] ? props.openDataState[value.player_id].name: null}</td>
                                                 <td>{get_names_by_ids(value.voted_players_ids).join(", ")}</td>
                                                 <td>{props.openDataState[index].action}</td>
-                                            </tr>
+                                                <td>{value.player_id}</td>
+                                            </tr>: value.player_id
                                         )
                                     }): null
                             }

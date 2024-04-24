@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import "../../public/styles/home.css"
 import {useNavigate} from 'react-router-dom';
-import {joinToRoom as sendJoinMessage, subscribeGameStarted, subscribeOpenPropertyMessage, subscribeRoomVisitors} from "../../ws";
+import {joinToRoom as sendJoinMessage, subscribeGameStarted} from "../../ws";
 
 let roomRef
 let navigate
