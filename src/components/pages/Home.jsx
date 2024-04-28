@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import "../../public/styles/home.css"
-import {useNavigate} from 'react-router-dom';
+import {defer, useNavigate} from 'react-router-dom';
 import {joinToRoom as sendJoinMessage, subscribeGameStarted} from "../../ws";
 
 let roomRef
@@ -60,9 +60,10 @@ function Home(props) {
         postRoomCreate(usernameState).then( r => {
             props.setRoomIdState(r.room_id)
             props.setIsHostState(true)
-            navigate('/game')
             props.setVisitorState([usernameState])
             props.setPlayerIdState(0)
+            subscribeGameStarted(r.room_id, gameStartedCallback)
+            navigate('/game')
         })
     }
 

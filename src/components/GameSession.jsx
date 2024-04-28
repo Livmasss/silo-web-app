@@ -29,6 +29,8 @@ function GameSession(props) {
     const [playerState, setPlayerState] = useState(null);
     const [voteTargetState, setVoteTargetState] = useState(null)
 
+    const [idsNamesMapping, setIdsNamesMapping] = useState({});
+
     const onVoteTargetChanged = e => {
         setVoteTargetState(e.target.value)
     }
@@ -62,27 +64,46 @@ function GameSession(props) {
     }
 
     useEffect(() => {
-        getPlayerData()
-            .then(res => {
-                setPlayerState(res)
-            })
-            .catch(err => console.log(err));
+        setTimeout(
+            () => {
+                getPlayerData()
+                .then(res => {
+                    setPlayerState(res)
+                })
+                .catch(err => console.log(err));
+            }, 1000);
+
     }, [props.playerIdState])
 
     useEffect(() => {
-        getOpenData()
-            .then(res => {
-                props.setOpenDataState(res.players)
-            })
-            .catch(err => console.log(err))
+        setTimeout(
+            () => {
+                getOpenData()
+                .then(res => {
+                    props.setOpenDataState(res.players)
+    
+                    if (idsNamesMapping !== null)
+                        return
+                    
+                    res.players.forEach((element) => 
+                        idsNamesMapping[element.id] = element.name
+                    );
+    
+                    console.log(idsNamesMapping)
+                })
+                .catch(err => console.log(err))
+            }, 1000)
     }, [])
 
     useEffect(() => {
-        getActionsData()
-            .then(res => {
-                props.setVotesState(res["items"])
-            })
-            .catch(err => console.log(err))
+        setTimeout(
+            () => {
+                getActionsData()
+                .then(res => {
+                    props.setVotesState(res["items"])
+                })
+                .catch(err => console.log(err))
+            }, 1000)
     }, [])
 
     const getPlayerProp = (key) => {
@@ -125,9 +146,21 @@ function GameSession(props) {
     }
 
     const get_names_by_ids = (voted_players_ids) =>
-        voted_players_ids.map((item) => {
-            return props.openDataState[item] ? props.openDataState[item].name : null
-        })
+        voted_players_ids.map((id) =>
+            findNameById(id)
+        )
+
+    const findNameById = (id) => {
+        for (let i = 0; i < props.openDataState.length; i++)  {
+            const item = props.openDataState[i]
+            
+            if (item.id == id) {
+                return item.name
+            }
+        }
+
+        return null
+    }
 
     return (
         <main>
@@ -249,7 +282,7 @@ function GameSession(props) {
                                 props.openDataState ?
                                 props.votesState !== null && props.votesState
                                     .map((value, index) => {
-                                        console.log(`Player id: ${value.player_id}`)
+
                                         return (
                                             props.openDataState[index] ? <tr key={index}>
                                                 <td>
@@ -259,11 +292,11 @@ function GameSession(props) {
                                                         name="vote"
                                                         onChange={onVoteTargetChanged}/>
                                                 </td>
-                                                <td>{props.openDataState[value.player_id] ? props.openDataState[value.player_id].name: null}</td>
+                                                <td>{findNameById(value.player_id)}</td>
                                                 <td>{get_names_by_ids(value.voted_players_ids).join(", ")}</td>
                                                 <td>{props.openDataState[index].action}</td>
                                                 <td>{value.player_id}</td>
-                                            </tr>: value.player_id
+                                            </tr> : null
                                         )
                                     }): null
                             }
